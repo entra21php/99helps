@@ -1,0 +1,4 @@
+<?php
+	#  FUNCÇÕES
+	// Aqui ficará as funções desenvolvidas por nós
+?>
