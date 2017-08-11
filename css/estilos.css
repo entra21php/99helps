@@ -1,0 +1,70 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+button:hover {
+	cursor: pointer !important;
+}
+
+p {
+	margin: 0;
+}
+
+/* CLASSES PADRAO PROJETO */
+
+.nav,.footer {
+	line-height: 80px;
+}
+
+.destaque {
+	background-color: #f5f5f5;
+}
+
+.footer hr {
+	margin: 0;
+	background-color: rgba(255,255,255,0.35);
+}
+
+.footer a {
+	margin-right: 20px;
+}
+
+/* INDEX LOGADO */
+
+
+
+/* INDEX DESLOGADO */
+
+.quem-somos,.eventos-destaque {
+	padding: 50px 10%;
+}
+
+.como-funciona {
+	padding: 50px 10%;
+}
+
+.evento {
+	margin: 6% 0.5%;
+}
+
+/* DROPDOWN MODIFICADO DO BOOTSTRAP COM OUTRO NOME */
+
+.dropdown-login {
+  display: block;
+  width: 100%;
+  padding: 3px 1.5rem;
+  clear: both;
+  font-weight: normal;
+  color: #292b2c;
+  text-align: inherit;
+  white-space: nowrap;
+  background: none;
+  border: 0;
+}
+
+.dropdown-login:focus, .dropdown-login:hover {
+  color: #1d1e1f;
+  text-decoration: none;
+  background-color: #f7f7f9;
+}
