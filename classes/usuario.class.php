@@ -1,6 +1,6 @@
 <?php
 	#  MODULO USUÁRIO
-	// Desenvolvido por: Aluno1 e Aluno2
+	// Desenvolvido por: Douglas e Jefferson
 	class Usuario Extends Site {
 
 		public function __construct() {		
