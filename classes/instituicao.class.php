@@ -1,14 +1,16 @@
 <?php
 	#  MODULO INSTITUICAO
-	// Desenvolvido por: Aluno1 e Aluno2
+	// Desenvolvido por: João de Paula e Nilton Souza
 	class Instituicao Extends Site {
-
+		
 		public function __construct() {		
-			# Verifica a acao do momento (perfil_instituicao, add, del, edt)
+			# Verifica a acao do momento (perfil_instituicao, add, del, edt)	
+			require_once("instituicao_form.php");
 		}
 
 		public function addInstituicao() {
 			# Recebe informações do form da pagina e realiza insert
+			# joao AKIIIIIIIIII
 		}
 
 		public function delInstituicao() {
@@ -19,19 +21,23 @@
 			# Recebe informações do form da pagina e realiza edt
 		}
 
+		// exibicao bonita
 		public function verInstituicao() {
 			#  Select da instituicao e require do html da página (perfil_instituicao -> pagina da instituicao detalhada)
 			// Aqui será a página bonita que exibe o perfil da instituição de acordo com o parametro id
 			// perfil_instituicao -> terá 2 html, listagem do evento padrão e membros participantes desta instituicao puxando os usuários do banco... deverá ficar tudo em 1 arquivo com if do get. pag-ex: perfil do trello
 		}
 
+		//form editar e criar
 		public function formInstituicao() {
 			#  Select dos dados e require do html da página (form_instituicao -> add, edt, del)
 			// Aqui os inputs virão preenchidos com as infos da instituicao de acordo com o select por id
 			// verInstituicao -> terá 2 páginas, ver_perfil padrão e ver_membros puxando os usuários da n,n..
 			// deverá ficar tudo em 1 arquivo com if do get. pag-ex: perfil do trello
+			require_once("../instituicao_form.php");
 		}
 
+		// minhas instituicoes
 		public function listInstituicoes() {
 			# Select da listagem e require do html da página (listagem)
 			// Neste list instituicao devera aparecer as instituicoes que o usuário esta participando
