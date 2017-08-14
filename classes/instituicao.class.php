@@ -4,13 +4,45 @@
 	class Instituicao Extends Site {
 		
 		public function __construct() {		
-			# Verifica a acao do momento (perfil_instituicao, add, del, edt)	
-			require_once("instituicao_form.php");
+			# Verifica a acao do momento (perfil_instituicao, add, del, edt)
+			$this->addInstituicao();
 		}
 
 		public function addInstituicao() {
+			# Reset das variaveis
+			$msg_erro = "";
+			$razaoSocial = "";
+			$nomeFantasia = "";
+			$logadrouro = "";
+			$numero = "";
+			$estado	= "";
+			$causa_defendida = "";
+			
 			# Recebe informações do form da pagina e realiza insert
-			# joao AKIIIIIIIIII
+			if (isset($_POST['enviar'])) {
+				$razaoSocial 	 = $_POST['razaoSocial'];
+				$nomeFantasia 	 = $_POST['nomeFantasia'];
+				$logadrouro 	 = $_POST['logadrouro'];
+				$numero 		 = $_POST['numero'];
+				$estado			 = $_POST['estado'];
+				$causa_defendida = $_POST['causa_defendida'];
+
+				// Verifica se existe campo vazio
+				if ((empty($razaoSocial)) || (empty($nomeFantasia)) || (empty($logadrouro)) || (empty($numero)) || (empty($estado)) || (empty($causa_defendida))) {
+					$msg_erro = "Preencha todos os campos! <br>";
+				}
+
+				// Exibe erro se ele existir
+				if ((strlen($msg_erro))>0) {
+					alert($msg_erro,"danger");
+				} 
+
+			}
+
+			# Exibição do formulário
+			// if ($exibe_form==true) {
+				require_once("instituicao_form.php");
+			// }
 		}
 
 		public function delInstituicao() {
@@ -41,8 +73,8 @@
 		public function listInstituicoes() {
 			# Select da listagem e require do html da página (listagem)
 			// Neste list instituicao devera aparecer as instituicoes que o usuário esta participando
-     		// gerando links para ir direto a pagina da instituicao... (ai ele pode edt, del, ver)
-     		// Se ele não participa de nenhum ou mesmo se participa haverá um botao para criar nova instituicao
+			// gerando links para ir direto a pagina da instituicao... (ai ele pode edt, del, ver)
+			// Se ele não participa de nenhum ou mesmo se participa haverá um botao para criar nova instituicao
    			// $$$ - O acesso a este método será feito no menu do usuário na navbar Minhas Insituições
 		}
 
