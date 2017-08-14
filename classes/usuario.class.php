@@ -41,15 +41,90 @@ class Usuario Extends Site {
 
 
 public function addCadastro() {
-			# Recebe informações do conteudo da pagina e realiza insert
+		# Recebe informações do conteudo da pagina e realiza insert
+		$nome 			= $_POST['nome'];
+		$sobrenome 		= $_POST['sobrenome'];
+		$sexo 			= $_POST['sexo'];
+		$datanascimento 	= $_POST['datanascimento'];
+		$imagem_perfil 	= $_POST ['imagem_perfil'];
+		$estado 		= $_POST['estado'];
+		$fk_cidade 		=$_POST['fk_cidade'];
+		$email 			=$_POST['email'];
+		$senha 		=$_POST['senha'];
+		$ativo			=$_POST['ativo'];
+
+		$sql = "INSERT INTO  usuarios_fisico (
+							nome,
+							sobrenome,
+							sexo,
+							datanascimento,
+							imagem_perfil,
+							estado,
+							fk_cidade,
+							email,
+							senha,
+							ativo
+							)
+							VALUES
+							(
+							'$nome',
+							'$sobrenome',
+							'$sexo',
+							$datanascimento,
+							'$imagemperfil',
+							'$estado',
+							$fk_cidade,
+							'$email',
+							'$senha',
+							$ativo
+							)";
+
+
+
 }
 
 public function delCadastro() {
-			# Recebe informações do form da pagina e realiza del
+		# Recebe informações do form da pagina e realiza del
+		$delete = "DELETE FROM usuarios_fisico WHERE id = " .$id;
+
+		if (mysql_query($delete)) {
+			echo '<p> Excluido com sucesso!</p>';
+		} else {
+			echo '<p>Não foi possível excluir</>';
+		}
 }
 
 public function edtCadastro() {
-			# Recebe informações do form da pagina e realiza edt
+		# Recebe informações do form da pagina e realiza edt
+		$nome 			= $_POST['nome'];
+		$sobrenome 		= $_POST['sobrenome'];
+		$sexo 			= $_POST['sexo'];
+		$datanascimento 	= $_POST['datanascimento'];
+		$imagem_perfil 	= $_POST ['imagem_perfil'];
+		$estado 		= $_POST['estado'];
+		$fk_cidade 		=$_POST['fk_cidade'];
+		$email 			=$_POST['email'];
+		$senha 		=$_POST['senha'];
+		$ativo			=$_POST['ativo'];
+
+		//atualizar no banco de dados
+		$sql = "UPDATE usuarios_fisico SET  	nome 			='$nome',
+							sobrenome		='$sobrenome',
+							sexo 			='$sexo',
+							datanascimento 	='$datanascimento',
+							imagem_perfil		='$imagem_perfil',
+							estado 			='$estado',
+							fk_cidade 		='$fk_cidade',
+							email 			='$email',
+							senha			='$senha',
+							ativo			='$ativo'
+							WHERE id 		=" . $id;
+
+		if (mysql_query($sql)) {
+			echo '<p>Editado com sucesso</p>';
+		} else {
+			echo '<p>Problemas na edição!</p>';
+		}
 }
 
 public function verCadastro() {
