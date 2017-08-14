@@ -3,6 +3,6 @@
 	require_once("classes/Site.class.php");
 
 	// INICIALIZAR CLASSES
-	$site = new Site;
+	$site = new Site($hef=true);
 	$usuario = new Usuario;
 ?>
