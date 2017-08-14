@@ -42,17 +42,17 @@ class Usuario Extends Site {
 
 public function addCadastro() {
 		# Recebe informações do conteudo da pagina e realiza insert
-		$nome 			=$_POST['nome'];
-		$sobrenome 		=$_POST['sobrenome'];
-		$sexo 			=$_POST['sexo'];
+		$nome 			    =$_POST['nome'];
+		$sobrenome 		    =$_POST['sobrenome'];
+		$sexo 			    =$_POST['sexo'];
 		$datanascimento 	=$_POST['datanascimento'];
-		$imagem_perfil 	=$_POST['imagem_perfil'];
-		$estado 		=$_POST['estado'];
-		$fk_cidade 		=$_POST['fk_cidade'];
-		$email 			=$_POST['email'];
-		$senha 		=$_POST['senha'];
-		$senha_confere	=$_POST['senha_confere'];
-		$ativo			=$_POST['ativo'];
+		$imagem_perfil 	    =$_POST['imagem_perfil'];
+		$estado 		    =$_POST['estado'];
+		$fk_cidade 		    =$_POST['fk_cidade'];
+		$email 			    =$_POST['email'];
+		$senha 		        =$_POST['senha'];
+		$senha_confere	    =$_POST['senha_confere'];
+		$ativo			    =$_POST['ativo'];
 
 
 		// verificar erros
