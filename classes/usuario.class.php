@@ -8,19 +8,19 @@ class Usuario Extends Site {
 		if (isset($_POST['edit'])) {
 
 			// se é edição
-			$this->editUsuario();
+			$this->editCadastro();
 
-		} elseif (isset($_GET['editUsuario'])) {
+		} elseif (isset($_GET['editCadastro'])) {
 
 			// se é cadastro
-			$this->insertForm('edit',$_GET['editUsuario']);
+			$this->insertForm('edit',$_GET['editCadastro']);
 
 		} elseif (isset($_POST['add'])) {
 
 			// se é cadastro
-			$this->addUsuario();
+			$this->addCadastro();
 
-		} elseif (isset($_GET['addUsuario'])) {
+		} elseif (isset($_GET['addCadastro'])) {
 
 			// se é cadastro
 			$this->insertForm('add',0);
@@ -28,12 +28,12 @@ class Usuario Extends Site {
 		} elseif (isset($_GET['del'])) {
 
 			// se é delete
-			$this->delUsuario($_GET['del']);
+			$this->delCadastro($_GET['del']);
 
 		} else {
 
 			// senao, é listagem
-			$this->listUsuario();
+			$this->verCadastro();
 
 		}
 
@@ -42,16 +42,43 @@ class Usuario Extends Site {
 
 public function addCadastro() {
 		# Recebe informações do conteudo da pagina e realiza insert
-		$nome 			= $_POST['nome'];
-		$sobrenome 		= $_POST['sobrenome'];
-		$sexo 			= $_POST['sexo'];
-		$datanascimento 	= $_POST['datanascimento'];
-		$imagem_perfil 	= $_POST ['imagem_perfil'];
-		$estado 		= $_POST['estado'];
+		$nome 			=$_POST['nome'];
+		$sobrenome 		=$_POST['sobrenome'];
+		$sexo 			=$_POST['sexo'];
+		$datanascimento 	=$_POST['datanascimento'];
+		$imagem_perfil 	=$_POST['imagem_perfil'];
+		$estado 		=$_POST['estado'];
 		$fk_cidade 		=$_POST['fk_cidade'];
 		$email 			=$_POST['email'];
 		$senha 		=$_POST['senha'];
+		$senha_confere	=$_POST['senha_confere'];
 		$ativo			=$_POST['ativo'];
+
+
+		// verificar erros
+		
+		// campos nao podem estar vazios
+		if ((empty($nome))  ||  (empty($sobrenome)) || (empty($sexo)) || (empty($datanascimento)) || (empty($imagem_perfil)) || (empty($estado))  || (empty($fk_cidade)) || (empty($email)) || 
+		   (empty($senha))  ||  (empty($senha_confere))  ) {
+		$erro = true;
+		echo '<div class="alert alert-danger" role="alert">Preencha todos os campos </div>';
+	}
+		// conferir se as senhas são iguais
+		if ($senha != $senha_confere) {
+		$erro = true;
+		echo '<div class="alert alert-danger" role="alert">As senhas devem ser iguais! </div>';
+	}
+		// e ter pelo menos 8 caracteres
+		if (strlen($senha) < 8) {
+		$erro = true;
+		echo '<div class="alert alert-danger" role="alert">As senhas devem ter pelo menos 8 caracteres! </div>';
+	}
+		# criptografar senha
+		$senha_crypt = hash('sha512',$senha);
+
+		// cadastrar caso nao tenha erro
+		if ($erro == false) {
+
 
 		$sql = "INSERT INTO  usuarios_fisico (
 							nome,
@@ -75,11 +102,28 @@ public function addCadastro() {
 							'$estado',
 							$fk_cidade,
 							'$email',
-							'$senha',
+							'$senha_crypt',
 							$ativo
 							)";
 
+							// se foi possivel cadastrar
+		if (mysql_query($sql)) {
 
+			echo '<div class="alert alert-success" role="alert">Cadastrado com sucesso</div>';
+
+			// se cadastra, oculta form
+			$exibe_form = false;
+
+		} else {
+
+			// se deu erro no cadastro
+			echo '<div class="alert alert-danger" role="alert">deu erro no cadastro <br> $sql </div>';
+
+		}
+
+	}
+
+	
 
 }
 
@@ -135,6 +179,7 @@ public function verCadastro() {
 public function formCadastro() {
 			# Select dos dados e require do html da página (form_usuario -> pagina do perfil detalhado)
 			// Aqui os inputs virão preenchidos com as infos do perfil de acordo com o select por id
+		
 }
 }
 ?>
