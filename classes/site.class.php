@@ -26,8 +26,16 @@
 				}
 			}
 
+			// Chamando a conexão
+			$this->Conexao();
+
+			// Chamando o arquivo de config
 			require_once("include/config.php");
 
+			// Chamando as funções
+			require_once("include/functions.php");
+
+			// Verifica se está sendo passado o parametro da inserção do cabeçalho
 			if ($hef == true) {
 				require_once("include/header.php");
 			}
