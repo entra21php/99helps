@@ -1,7 +1,7 @@
 <?php
 	# CLASSE PRINCIPAL
 	require_once("classes/site.class.php");
-	$site = new Site;
+	$site = new Site($hef=true);
 
 ?>
 		<section class="row quem-somos destaque text-center">
