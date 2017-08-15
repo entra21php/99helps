@@ -50,7 +50,7 @@
 			define('LOCAL', 'localhost');
 			define('BANCO', '99helps');
 			define('USER',  'root');
-			define('PASS',  'admin');
+			define('PASS',  'usbw');
 
 			$conexao = mysql_connect(LOCAL,USER,PASS) or die ("Erro na conexao com o servidor...");
 			$banco   = mysql_select_db(BANCO,$conexao) or die("Erro de selecao de banco...");
