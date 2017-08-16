@@ -5,6 +5,8 @@
 	// <?=$res['resultado_mysql']?_>
 
 	// As verificações em php serão feitas na metódo da classe que chama este arquivo
+	// 
+	
 ?>
 <div class="container">
 	<ol class="breadcrumb">
@@ -19,37 +21,37 @@
 				<div class="row">
 					<div class="form-group col-12">
 						<label for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome" name="nome"aria-describedby="razaoSocialHelp" placeholder="Ex: Instituição Amiguinho Feliz" value="">
+						<input type="text" class="form-control" id="nome" name="nome" aria-describedby="nome" placeholder="Ex: Amiguinho Feliz" value="<?=$this->nome?>">
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-12">
 						<label for="sobrenome">Sobrenome</label>
-						<input type="text" class="form-control" id="sobrenome" name="sobrenome" aria-describedby="sobrenomelHelp" placeholder="Ex: Amiguinho Feliz" value="">
+						<input type="text" class="form-control" id="sobrenome" name="sobrenome" aria-describedby="sobrenomel" placeholder="Ex: Amiguinho Feliz" value="<?=$this->sobrenome?>">
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-2">
 						<label for="sexo">Sexo</label>
-						<select class="form-control" id="sexo">
+						<select class="form-control" id="sexo" name="sexo">
 							<option>Masculino</option>
 							<option>Feminino</option>
 						</select>
 					</div>
 					<div class="form-group col-md-2">
 						<label for="nascimento">Nascimento</label>
-						<input type="date" class="form-control" id="nascimento" aria-describedby="emailHelp" >
+						<input type="date" class="form-control" id="nascimento" name="datanascimento" aria-describedby="emailHelp" value="<?=$this->datanascimento?>">
 					</div>
 					<div class="form-group col-md-4">
 						<label for="fotodoperfil">Foto do perfil:</label>
-						<input type="file" class="form-control-file" id="fotodoperfil" aria-describedby="fileHelp">
+						<input type="file" class="form-control-file" id="fotodoperfil" name="imagem_perfil" aria-describedby="fileHelp">
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="form-group col-12 col-md-6">
 						<label for="estado">Estado</label>
-						<select class="custom-select form-control" name="estado" value="<?=$estado?>">
+						<select class="custom-select form-control" name="estado" value="<?=$this->estado?>">
 							<option selected>Selecione o estado</option>
 							<option value="AC">AC</option>
 							<option value="AL">AL</option>
@@ -83,7 +85,7 @@
 					<div class="form-group col-12 col-md-6">
 						<label for="cidade">Cidade</label>
 						<!-- AQUI VAI O FOR DAS CIDADES DO BANCO -->
-						<select class="custom-select form-control" name="cidade" value="<?=$cidade?>">
+						<select class="custom-select form-control" name="fk_cidade" value="<?=$this->fk_cidade?>">
 							<option selected>Selecione a cidade</option>
 							<option value="1">São Paulo</option>
 							<option value="2">Blumenau</option>
@@ -96,7 +98,7 @@
 					<div class="form-group col-12">
 						<label for="interesses">Interesses</label>
 						<!-- AQUI VAI O FOR DAS CAUSAS DO BANCO -->
-						<select class="custom-select form-control" name="interesses" value="">
+						<select class="custom-select form-control" name="interesses" value="<?=$this->interesses?>">
 							<option selected>Selecione seus interesses</option>
 							<option value="1">Causa animal</option>
 							<option value="2">Pessoas em situação de rua</option>
@@ -106,18 +108,23 @@
 					</div>	
 				</div>
 				<div class="form-group">
-					<label for="exampleInputEmail1">Email</label>
-					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Coloque seu email aqui!!!">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Coloque seu email aqui!!!">
+					<small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email com ninguém.</small>
+				</div>
+				<div class="form-group">
+					<label for="confirmeemail">Confirme seu Email</label>
+					<input type="email" class="form-control" id="confirmeemail" name="email_confere" aria-describedby="emailHelp" placeholder="Confirme seu email!!!">
 					<small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email com ninguém.</small>
 				</div>
 				<div class="row">
 				<div class="form-group col-12 col-md-6">
 						<label for="senha">Senha</label>
-						<input type="password" class="form-control" id="senha" placeholder="Senha">
+						<input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
 					</div>
 					<div class="form-group col-12 col-md-6">
 						<label for="confirmesenha">Confirme sua senha</label>
-						<input type="password" class="form-control" id="confirmesenha" placeholder="Confirme sua senha">
+						<input type="password" class="form-control" id="confirmesenha" name="senha_confere" placeholder="Confirme sua senha">
 					</div>
 				</div>
 				<div class="form-group">
