@@ -5,15 +5,26 @@
 	// <?=$res['resultado_mysql']?_>
 
 	// As verificações em php serão feitas na metódo da classe que chama este arquivo
+	if (isset($_GET['edt'])) {
+		$btn_name = "Salvar";
+		$page_title = "Alteração do cadastro de " . $rs['nome_fantasia'];
+		$breadcrumb_title = "Alteração de cadastro de " . $rs['nome_fantasia'];
+	} else {
+		$btn_name = "Cadastrar";
+		$page_title = "Cadastro de nova instituição";
+		$breadcrumb_title = "Nova Instituição";
+	}
+
+	$estado = array("AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO");				
 ?>
 		<div class="container">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="index.php">Página Inicial</a></li>
-				<li class="breadcrumb-item active">Nova Instituição</li>
+				<li class="breadcrumb-item active"><?=$breadcrumb_title?></li>
 			</ol>
 
 			<div class="card">
-				<h6 class="card-header">Cadastro de nova instituição</h6>
+				<h6 class="card-header"><?=$page_title?></h6>
 				<div class="card-block">
 					<form method="POST" name="form">
 						<div class="row">
@@ -43,46 +54,32 @@
 						<div class="row">
 							<div class="form-group col-12 col-md-6">
 								<label for="estado">Estado</label>
-								<select class="custom-select form-control" name="estado" value="<?=$estado?>">
+								<select class="custom-select form-control" name="estado">
 									<option selected>Selecione o estado</option>
-									<option value="AC">AC</option>
-									<option value="AL">AL</option>
-									<option value="AP">AP</option>
-									<option value="AM">AM</option>
-									<option value="BA">BA</option>
-									<option value="CE">CE</option>
-									<option value="DF">DF</option>
-									<option value="ES">ES</option>
-									<option value="GO">GO</option>
-									<option value="MA">MA</option>
-									<option value="MT">MT</option>
-									<option value="MS">MS</option>
-									<option value="MG">MG</option>
-									<option value="PA">PA</option>
-									<option value="PB">PB</option>
-									<option value="PR">PR</option>
-									<option value="PE">PE</option>
-									<option value="PI">PI</option>
-									<option value="RJ">RJ</option>
-									<option value="RN">RN</option>
-									<option value="RS">RS</option>
-									<option value="RO">RO</option>
-									<option value="RR">RR</option>
-									<option value="SC">SC</option>
-									<option value="SP">SP</option>
-									<option value="SE">SE</option>
-									<option value="TO">TO</option>
+										<?php
+											foreach ($estado as $id => $nome) {
+												if ($nome==$rs['estado']) {
+													echo '<option value="'.$nome.'" selected>'.$nome.'</option>';
+												} else {
+													echo '<option value="'.$nome.'">'.$nome.'</option>';
+												}
+											}
+										?>
 								</select>
 							</div>
 							<div class="form-group col-12 col-md-6">
 								<label for="cidade">Cidade</label>
-								<!-- AQUI VAI O FOR DAS CIDADES DO BANCO -->
 								<select class="custom-select form-control" name="cidade" value="<?=$cidade?>">
 									<option selected>Selecione a cidade</option>
-									<option value="1">São Paulo</option>
-									<option value="2">Blumenau</option>
-									<option value="3">Porto Alegre</option>
-									<option value="3">Florianópolis</option>
+									<?php
+										$sqlCity = "SELECT * FROM cidades";	
+										$consultaCity = mysql_query($sqlCity);
+										while ($rsCity = mysql_fetch_array($consultaCity)) {
+									?>
+										<option value="<?=$rsCity['id']?>"><?=$rsCity['cidadenome']?></option>
+									<?php
+										}
+									?>
 								</select>
 							</div>
 						</div>
@@ -101,7 +98,7 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-12">
-								<input type="submit" type="button" class="btn btn-success" name="enviar" value="Cadastrar">
+								<input type="submit" type="button" class="btn btn-success" name="enviar" value="<?=$btn_name?>">
 							</div>
 						</div>
 					</form>
