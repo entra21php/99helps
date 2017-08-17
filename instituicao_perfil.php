@@ -8,25 +8,38 @@
 		// As verificações em php serão feitas na metódo da classe que chama este arquivo
 
 	require_once("include/header.php");
-
+		// $id 				= $_GET['id'];		
+		// $nome_fantasia 		= $_POST['nome_fantasia'];	
+		// $causa_defendida 	= $_POST['causa_defendida'];
+		// $razao_social 		= $_POST['razao_social'];
 		
-		$nome_fantasia 		= $_POST['nome_fantasia'];	
-		$id 				= $_GET['id'];		
-		$causa_defendida 	= $_POST['causa_defendida'];
-		$razao_social 		= $_POST['razao_social'];
-		
+	$sql = "SELECT nome_fantasia, razao_social, foto FROM instituicao WHERE id = " . $id ;
+	$consulta = mysql_query($sql);	
 		?>
 
 		<div class="container-fluid">
 			<div class="col-md-12 col-lg-12 text-center destaque1">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center fotinha">
-				    <h3><?=$rs['$nome_fantasia']?></h3>
-				    <a href="instituicao_perfil.php" class="thumbnail">
-				      <p>
-				      <img src="images/123.png" alt="">
-					  </p>		    
-				    </a>
-				   <!--  <br>
+				    <?php if ($_GET['id'] == $id) {
+				    	?>
+				    <h3><!-- <?=$rs['$nome_fantasia']?> -->Aqui!</h3>
+				    <p>
+				      <img src="images/123.png" alt="" class="textinho">
+					</p>
+				    	
+				    <?php
+				    }else{
+				    ?>
+				    	<a href="instituicao_form.php"><h3><!-- <?=$rs['$nome_fantasia']?> -->Aqui!</h3></a>	
+				    <p>
+				      <a href="instituicao_form.php"><img src="images/123.png" alt="" class="textinho"></a>
+					</p>
+				    				    			    
+				    <?php
+					}
+					?>
+					
+				    <!--  <br>
 				    <input type="submit" name="enviar" value="Editar Foto" class="btn btn-info button">  --> 
 				</div>
 				<br>
@@ -35,7 +48,7 @@
 		    			<button type="button" class="btn btn-justified">Admin Perfil</button>
 		  			</div> -->
 		  			<div class="btn-group" role="group">
-		   			 	<button type="button" class="btn btn-outline-primary">Integrantes</button>
+		   			 	<button type="button" class="btn btn-justified">Ver Integrantes</button>
 		  			</div>
 		  			<!-- <a href="#"><button type="button" class="btn btn-outline-primary">Saiba mais</button></a> -->
 		  			<!-- <div class="btn-group" role="group">
@@ -48,21 +61,18 @@
 	<?php
 
 		// Descrição da ong com php
-	if ($_GET['id'] != $id) {
-		echo "$razao_social";
+	if ($_GET['id'] == $id) {
 		?> 
 		
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 jumbotron">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 jumbotron text-center">
 	  <h1>
 	 	Descrição da ONG(<?=$rs['causa_defendida']?>)
 	  </h1>
-	  
 	  <p>
 	  	<?=$rs['razao_social']?>
 	  </p>
-	
 	  <p>
-	  	<a class="btn btn-primary btn-lg" href="#" role="button">Participe</a>
+	  	<a class="btn btn-outline-primary btn-lg" href="#" role="button">Participe</a>
 	  </p>
 	</div>
 		
@@ -72,16 +82,28 @@
 		
 		?>
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-		<input type="submit" action="instituicao.php?acao=edit" value="Editar Perfil" name="editar" class="btn btn-primary">
+				<form method="POST" action="instituicao_form.php" name="editar">
+			<input type="hidden" name="id" value="<?=$rs['id']?>">
+			<button type="submit" class="btn btn-outline-primary" name="editar"> 
+					<span aria-hidden="true">Editar Perfil</span>
+			</button>
+<!-- 
+		<input type="submit" action="instituicao.php?acao=delete" value="Excluir Perfil" name="excluir" class="btn btn-outline-danger">
+	 -->
+	
+		<form method="POST" action="#" name="excluir">
+			<input type="hidden" name="id" value="<?=$rs['id']?>">
+			<button type="submit" class="btn btn-outline-danger" name="excluir"> 
+					<span aria-hidden="true">Excluir Perfil</span>
+			</button>
+		</form>
+		</form>
 
-		<input type="submit" action="instituicao.php?acao=delete" value="Excluir Perfil" name="excluir" class="btn btn-danger">
 	</div>
 	<?php echo "$razao_social";
 	 }
 		
 	?>
-
-
 
 		<?php
 		require_once("include/footer.php")
