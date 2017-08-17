@@ -85,7 +85,7 @@
 					<div class="form-group col-12 col-md-6">
 						<label for="cidade">Cidade</label>
 						<!-- AQUI VAI O FOR DAS CIDADES DO BANCO -->
-						<select class="custom-select form-control" name="fk_cidade" value="<?=$this->fk_cidade?>">
+						<select class="custom-select form-control" name="fk_cidades" value="<?=$this->fk_cidades?>">
 							<option selected>Selecione a cidade</option>
 							<option value="1">São Paulo</option>
 							<option value="2">Blumenau</option>
@@ -109,12 +109,12 @@
 				</div>
 				<div class="form-group">
 					<label for="email">Email</label>
-					<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Coloque seu email aqui!!!">
+					<input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Coloque seu email aqui!!!" value="<?=$this->email?>">
 					<small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email com ninguém.</small>
 				</div>
 				<div class="form-group">
 					<label for="confirmeemail">Confirme seu Email</label>
-					<input type="email" class="form-control" id="confirmeemail" name="email_confere" aria-describedby="emailHelp" placeholder="Confirme seu email!!!">
+					<input type="email" class="form-control" id="confirmeemail" name="email_confere" aria-describedby="emailHelp" placeholder="Confirme seu email!!!" value="<?=$this->email_confere?>">
 					<small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email com ninguém.</small>
 				</div>
 				<div class="row">
@@ -129,7 +129,7 @@
 				</div>
 				<div class="form-group">
 					<label for="exampleTextarea">Rápida descrição sobre você!!!!</label>
-					<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+					<textarea class="form-control" id="exampleTextarea" rows="3" name="descricao" value="<?=$this->descricao?>"></textarea>
 				</div>
 				<div class="form-check">
 					<label class="form-check-label">
