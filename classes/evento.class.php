@@ -1,6 +1,6 @@
 <?php
 	#  MODULO EVENTO
-	// Desenvolvido por:
+	// Desenvolvido por: Julia Goedert e Allan Ranieri
 	class Evento {
 		public $titulo;
 		public $descricao;
@@ -153,8 +153,8 @@
 			# Setando parametros (se o form é edição ou adição)
 			if (isset($_GET['edt'])) {
 				$btn_name = "Salvar";
-				$page_title = "Alteração do cadastro de " . $this->descricao;
-				$breadcrumb_title = "Alteração de cadastro de " . $this->descricao;
+				$page_title = "Alteração do cadastro de " 		. $this->titulo;
+				$breadcrumb_title = "Alteração de cadastro de " . $this->titulo;
 			} else {
 				$btn_name = "Cadastrar";
 				$page_title = "Cadastro de novo evento";
