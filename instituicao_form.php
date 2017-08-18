@@ -5,6 +5,7 @@
 		<section class="container">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="index.php">Página Inicial</a></li>
+				<li class="breadcrumb-item"><a href="instituicao.php">Minhas Instituições</a></li>
 				<li class="breadcrumb-item active"><?=$breadcrumb_title?></li>
 			</ol>
 
@@ -28,8 +29,8 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-12 col-md-8">
-								<label for="logadrouro">Logradouro</label>
-								<input type="text" class="form-control" id="logadrouro" name="logadrouro" placeholder="Ex: Rua General Osório" value="<?=$this->logadrouro?>">
+								<label for="logradouro">Logradouro</label>
+								<input type="text" class="form-control" id="logradouro" name="logradouro" placeholder="Ex: Rua General Osório" value="<?=$this->logradouro?>">
 							</div>	
 							<div class="form-group col-12 col-md-4">
 								<label for="numero">Número</label>
@@ -72,7 +73,7 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-12">
-								<label for="causa-defendida">Causa defendida <?=$this->causa_defendida?></label>
+								<label for="causa-defendida">Causa defendida</label>
 								<select class="custom-select form-control" name="causa_defendida" value="<?=$this->causa_defendida?>">
 									<option selected>Selecione a causa defendida</option>
 									<?php
@@ -88,6 +89,13 @@
 									?>					
 								</select>
 								<small id="causa-defendidaHelp" class="form-text text-muted">Sua instituição pode defender no máximo 1 causa</small>
+							</div>	
+						</div>
+						<div class="row">
+							<div class="form-group col-12">
+								<label for="descricao">Descrição</label>
+								<textarea type="text" class="form-control" id="descricao" name="descricao" placeholder="Ex: A Instituição Amiguinho Feliz realiza trabalhos de abrigo e ajuda a adolescentes e jovens que vivem em situação de rua. Por estarmos em uma grande metrópole, todos os dias realizamos ações na cidade e portanto precisamos da ajuda de voluntários para contiarmos prestando essa ajuda aos necessitados. Se você se interessa em participar, entre em contato!" rows="4"><?=$this->descricao?></textarea>
+								<small id="descricaoHelp" class="form-text text-muted">Rediga uma pequena descrição sobre a sua instituição, este texto ficará disponível quando alguem acessar o perfil da instituição.</small>
 							</div>	
 						</div>
 						<div class="row">
