@@ -11,33 +11,38 @@
 	// 
 	// ((mysql_num_rows($rs['img_perfil']))==1) ? "tem foto" : "nao tem foto"
 ?>
-
-		<section class="row">
-			<div class="col-12 destaque">
-				<div class="row container perfil_instituicao destaque">
-					<div class="col-12 col-md-4 text-right">
-						<!-- DEIXAR IMAGEM NO CENTRO DA BOX NA VERTICAL -->
-						<p><img src="images/foto_padrao.png" class="rounded" style="max-height: 150px;"></p>
+		<section class="row destaque perfil_instituicao">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-md-3 top8">
+						<p><img src="images/foto_padrao.png" class="rounded mx-auto d-block" style="max-height: 150px;"></p>
 					</div>
-					<div class="col-12 col-md-8">
+					<div class="col-12 col-md-8 top8">
 						<h3><?=$rs['nome_fantasia']?></h3>
-						<p><?=$rs['descricao']?></p>
+						<p class="text-justify"><?=$rs['descricao']?></p>
+						<!-- SÓ EXIBE ESSE BOTÃO SE O ID DA SESSÃO TIVER PERMISSÃO -->
 						<div class="btn-group top8" role="group">
-							<a href="#"><button type="button" class="btn btn-secundary">Editar perfil</button></a>&nbsp;
-							<a href="#"><button type="button" class="btn btn-outline-danger">Excluir perfil</button></a>
-						</div>					
-					</div>			
-				</div>	
+							<a href="instituicao.php?edt=<?=$id?>"><button type="button" class="btn btn-secundary">Editar perfil</button></a>&nbsp;
+							<a href="instituicao.php?del=<?=$id?>&nome_fantasia=<?=$rs['nome_fantasia']?>"><button type="button" class="btn btn-outline-danger">Excluir instituição</button></a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 
 		<section class="row bg-primary">
-			<div class="container">
-				<div class="btn-group perfil_instituicao" role="group">
-					<a href="#"><button type="button" class="btn btn-secundary text-primary">Informações</button></a>&nbsp;
-					<a href="#"><button type="button" class="btn btn-link text-white">Eventos</button></a>&nbsp;
-					<a href="#"><button type="button" class="btn btn-link text-white">Membros</button></a>
-				</div>
+			<div class="container" style="padding: 10px 0 0 0;">
+				<ul class="nav nav-tabs" style="margin-bottom: -1px; line-height: 35px;">
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=($_GET['acao']=='informacoes')?"active":"text-white"?>" href="instituicao.php?ver=<?=$id?>&acao=informacoes">Informações</a>
+					</li>
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=($_GET['acao']=='eventos')?"active":"text-white"?>" href="instituicao.php?ver=<?=$id?>&acao=eventos">Eventos</a>
+					</li>
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=($_GET['acao']=='membros')?"active":"text-white"?>" href="instituicao.php?ver=<?=$id?>&acao=membros">Membros</a>
+					</li>
+				</ul>
 			</div>		
 		</section>		
 		<?php
@@ -63,9 +68,30 @@
 		<section class="row">
 			<div class="container">
 				<div class="col-12 perfil_instituicao">
-					<h3>Eventos</h3>
-					<p><?=$rs['logradouro']?>, <?=$rs['numero']?> - <?=$rs['cidadenome']?>/<?=$rs['estado']?></p>
-					<p>AKI VAI O GOOGLE MAPS COM O MAPA</p>
+					<div class="row">
+						<?php 
+							// AQUI VAI O SELECT DOS EVENTOS DA ONG
+							$sql = "".$id;	
+							$consulta = mysql_query($sql);
+							while ($rs = mysql_fetch_array($consulta)) {
+						?>
+							<div class="col-12 col-md-3">
+								<div class="card">
+									<img class="card-img-top img-fluid" src="images/evento1.jpg">
+									<div class="card-block">
+										<h4 class="card-title">Reforma carroça do seu zé</h4>
+										<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
+										<small class="card-text">
+											<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00 <span class="badge badge-default">Finalizado</span><br>
+										</small>
+										<a href="#" class="btn btn-sm btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+									</div>
+								</div>
+							</div>
+						<?php
+							}
+						?>
+					</div>
 				</div>
 			</div>		
 		</section>		
@@ -76,10 +102,38 @@
 		<!-- PÁGINA MEMBROS -->
 		<section class="row">
 			<div class="container">
-				<div class="col-12 perfil_instituicao">
-					<h3>Membros</h3>
-					
-				</div>		
+				<div class="row">
+					<?php 
+						// SELECT QUE PUXA SOMENTE OS USUARIOS DA ONG QUE ESTA ACESSANDO
+						$sql = "SELECT usuarios_fisico.nome,usuarios_fisico.sobrenome,usuarios_instituicoes.nivel_acesso FROM usuarios_instituicoes
+								LEFT JOIN usuarios_fisico ON usuarios_fisico.id=usuarios_instituicoes.fk_usuario WHERE fk_instituicao=".$id;	
+						$consulta = mysql_query($sql);
+						while ($rs = mysql_fetch_array($consulta)) {
+					?>
+						<div class="col-12 col-md-3" style="margin-top: 30px;">
+							<div class="card">
+								<img class="card-img-top img-fluid" src="images/evento1.jpg">
+								<div class="card-block text-center">
+									<h4 class="card-title" style="margin-bottom: 8px !important;">João de Paula</h4>
+									<p class="card-text">
+										<?php 
+											if ($rs['nivel_acesso']=="Membro") {
+												echo '<span class="badge badge-default">Membro</span>';
+											} else {
+												echo '<span class="badge badge-warning">Administrador</span>';
+											}
+										?>
+									</p>
+									<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO USUÁRIO -->
+									<a href="#" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+								</div>
+							</div>
+						</div>
+					<?php
+						}
+					?>
+				</div>
+				<br>		
 			</div>
 		</section>
 		<?php 
