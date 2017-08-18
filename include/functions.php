@@ -11,12 +11,14 @@
 
 	function alert($msg,$cor) {
 ?>
-<div class="alert alert-<?=$cor?> alert-dismissible fade show" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-	<?=$msg?>
-</div>
+<section class="container">
+	<div class="alert alert-<?=$cor?> alert-dismissible fade show" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		<?=$msg?>
+	</div>
+</section>
 <?php
 	}
 
