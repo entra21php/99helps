@@ -32,7 +32,17 @@ p {
 
 /* INDEX LOGADO */
 
+.top8 {
+	margin-top: 8px;
+}
 
+.perfil_instituicao {
+	padding: 20px 0;
+}
+
+.social:hover {
+	opacity: 0.5;
+}
 
 /* INDEX DESLOGADO */
 
