@@ -15,6 +15,7 @@ class Usuario Extends Site {
 	public $senha 			= "";
 	public $descricao		="";
 	public $ativo			= "";
+	public $erro 			=false;
 
 
 	public function __construct() {		
@@ -55,7 +56,7 @@ class Usuario Extends Site {
 
 	public function addCadastro() {
 
-		$msg_erro = "";
+		
 
 		# Recebe informações do conteudo da pagina e realiza insert
 		if(isset($_POST['enviar'])) {
@@ -64,7 +65,7 @@ class Usuario Extends Site {
 			$this->sobrenome 		=$_POST['sobrenome'];
 			$this->sexo 			=$_POST['sexo'];
 			$this->datanascimento 	    	=$_POST['datanascimento'];
-			$this->imagem_perfil 	    	=$_POST['imagem_perfil'];
+			
 			$this->estado 		    	=$_POST['estado'];
 			$this->fk_cidades 		=$_POST['fk_cidades'];
 			$this->email 			=$_POST['email'];
@@ -81,7 +82,7 @@ class Usuario Extends Site {
 			$target_dir = "uploads/";
 
 			# novo nome aleatorio da imagem
-			$imagem_perfil = rand(100000000,999999999);
+			$this->imagem_perfil = rand(100000000,999999999);
 			# nome completo
 			$nome_novo =  $target_dir . $this->imagem_perfil .'.'. pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION);
 
@@ -150,7 +151,7 @@ class Usuario Extends Site {
 			sobrenome,
 			sexo,
 			datanascimento,
-
+			imagem_perfil,
 			estado,
 			fk_cidades,
 			email,
@@ -164,7 +165,7 @@ class Usuario Extends Site {
 			'$this->sobrenome',
 			'$this->sexo',
 			$this->datanascimento,
-
+			$this->imagem_perfil,
 			'$this->estado',
 			$this->fk_cidades,
 			'$this->email',
@@ -175,8 +176,15 @@ class Usuario Extends Site {
 
 				// se foi possivel cadastrar
 			if (mysql_query($sql)) {
+				# salva o arquivo no diretorio upload
+				if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo)) {
+					echo "Arquivo cadastrado: ". basename( $_FILES["fileToUpload"]["name"]). "  <br>";
+				} else {
+					echo "Sorry, there was an error uploading your file.";
+				}
 				echo '<div class="alert alert-success" role="alert">Cadastrado com sucesso</div>';
 			} else {
+
 				// se deu erro no cadastro
 				echo '<div class="alert alert-danger" role="alert">deu erro no cadastro <br> </div>';
 				echo $sql;
@@ -202,7 +210,7 @@ public function edtCadastro() {
 	$this->sobrenome 		= $_POST['sobrenome'];
 	$this->sexo 			= $_POST['sexo'];
 	$this->datanascimento 		= $_POST['datanascimento'];
-	/*$this->imagem_perfil 		= $_POST ['imagem_perfil'];*/
+	$this->imagem_perfil 		= $_POST ['imagem_perfil'];
 	$this->estado 			= $_POST['estado'];
 	$this->fk_cidades 		=$_POST['fk_cidades'];
 	$this->email 			=$_POST['email'];
@@ -214,7 +222,7 @@ public function edtCadastro() {
 	sobrenome		='$this->sobrenome',
 	sexo 			='$this->sexo',
 	datanascimento 	='$this->datanascimento',
-	/*imagem_perfil		='$this->imagem_perfil',*/
+	imagem_perfil		='$this->imagem_perfil',*/
 	estado 			='$this->estado',
 	fk_cidades 		='$this->fk_cidades',
 	email 			='$this->email',
@@ -232,14 +240,14 @@ public function edtCadastro() {
 public function verCadastro() {
 			#  Select do usuario e require do html da página (perfil_usuario -> pagina do perfil detalhado)
 			// Aqui será a página bonita que exibe o perfil do usuário de acordo com o parametro id
+			require_once("perfil_usuario.php");
 }
 
 public function formCadastro() {
 			# Select dos dados e require do html da página (form_usuario -> pagina do perfil detalhado)
 			// Aqui os inputs virão preenchidos com as infos do perfil de acordo com o select por id
 
-	require_once("/usuario_form.php");
+			require_once("/usuario_form.php");
 }
 }
 ?>
-
