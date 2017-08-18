@@ -10,7 +10,7 @@
 	
 	#  A identação está organizada para exibir bonitinho no inspecionar elemento
 	// aqui ela tá feia mesmo...
-?>
+?>	
 	<section class="container">
 		<p>
 			<ol class="breadcrumb text-center">
@@ -27,7 +27,7 @@
 					// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
 					$sql = "SELECT instituicoes.id,instituicoes.nome_fantasia,nivel_acesso FROM usuarios_instituicoes
 							LEFT JOIN instituicoes ON id=fk_instituicao 
-							WHERE fk_usuario = 2 ORDER BY 3 DESC";	
+							WHERE fk_usuario = 1 ORDER BY 3 DESC";	
 					$consulta = mysql_query($sql);
 					while ($rs = mysql_fetch_array($consulta)) {
 				?>
@@ -47,7 +47,7 @@
 									}
 								?>
 								<p class="card-text">Aqui ficará o php que pega os 40 primeiros caracteres da descrição da instituição e adicionará...</p>
-								<a href="?ver=<?=$rs['id']?>" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
+								<a href="?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
 							</div>
 						</div>
 					</div>
@@ -57,28 +57,20 @@
 					if (mysql_num_rows($consulta)==0) {
 				?>
 				<div class="card">
-					<div class="card-block">
-						<div class="row">
-							<div class="col-12 col-md-12 text-center">
-								<h4 class="card-title">Você não participa de nenhuma instituição =(</h4>
-								<p class="card-text">Parece que você não tem muita intimidade com nossa plataforma ainda. Procure por eventos e solicite para participar das instituições que você desejaria ser membro, ou então veja como criar uma instituição abaixo.</p>
-								<a href="?add" class="btn btn-secondary top8">Procurar eventos <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
-							</div>
-						</div>
+					<div class="card-block text-center">
+						<h4 class="card-title">Você não participa de nenhuma instituição =(</h4>
+						<p class="card-text">Parece que você não tem muita intimidade com nossa plataforma ainda. Procure por eventos e solicite para participar das instituições que você desejaria ser membro, ou então veja como criar uma instituição abaixo.</p>
+						<a href="?add" class="btn btn-secondary top8">Procurar eventos <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
 					</div>
 				</div><br>
 				<?php 
 					}
 				?>
 				<div class="card">
-					<div class="card-block">
-						<div class="row">
-							<div class="col-12 col-md-12 text-center">
-								<h4 class="card-title">Cadastre sua instituição</h4>
-								<p class="card-text">Se você é representante legal de alguma instituição, fundação, entidade ou organização não governamental você pode se cadastrar em nossa plataforma para divulgar seus eventos e ações, atraindo novos colaboradores e membros para seus projetos. <mark> Cadastro requer o envio de documentos oficiais que comprovem a real existencia da instituição e está sujeito a aprovação no sistema. </mark></p>
-								<a href="?add" class="btn btn-success top8">Cadastrar minha instituição <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
-							</div>
-						</div>
+					<div class="card-block text-center">
+						<h4 class="card-title">Cadastre sua instituição</h4>
+						<p class="card-text">Se você é representante legal de alguma instituição, fundação, entidade ou organização não governamental você pode se cadastrar em nossa plataforma para divulgar seus eventos e ações, atraindo novos colaboradores e membros para seus projetos. <mark> Cadastro requer o envio de documentos oficiais que comprovem a real existencia da instituição e está sujeito a aprovação no sistema. </mark></p>
+						<a href="?add" class="btn btn-success top8">Cadastrar minha instituição <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
 					</div>
 				</div><br>
 			</div>
