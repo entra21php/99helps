@@ -17,7 +17,7 @@
 	<div class="card">
 		<h6 class="card-header">Cadastro de novo Helper</h6>
 		<div class="card-block">
-			<form method="POST" name="form">
+			<form method="POST" enctype="multipart/form-data" name="form">
 				<div class="row">
 					<div class="form-group col-12">
 						<label for="nome">Nome</label>
@@ -43,8 +43,8 @@
 						<input type="date" class="form-control" id="nascimento" name="datanascimento" aria-describedby="emailHelp" value="<?=$this->datanascimento?>">
 					</div>
 					<div class="form-group col-md-4">
-						<label for="fotodoperfil">Foto do perfil:</label>
-						<input type="file" class="form-control-file" id="fotodoperfil" name="imagem_perfil" aria-describedby="fileHelp">
+						<label for="imagem_perfil">Foto do perfil:</label>
+						<input type="file" class="form-control-file" id="imagem_perfil" name="fileToUpload" aria-describedby="fileHelp" value="imagem_perfil">
 					</div>
 				</div>
 				
