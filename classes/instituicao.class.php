@@ -26,9 +26,12 @@
 		} elseif (isset($_GET['add'])) {
 			// ADD
 			$this->addInstituicao();
-		} elseif (isset($_GET['ver'])) {
+		} elseif ((isset($_GET['ver'])) && (isset($_GET['acao'])) ) {
 			// VER INSTITUIÇÃO
 			$this->verInstituicao($_GET['ver']);
+		} elseif (isset($_GET['del'])) {
+			// VER INSTITUIÇÃO
+			$this->delInstituicao($_GET['del'],$_GET['nome_fantasia']);
 		} else {
 			// LISTAR INSTITUICOES
 			$this->listInstituicoes();
@@ -95,7 +98,13 @@
 		# Verifica se existe campo vazio
 		if ((empty($this->razaoSocial)) || (empty($this->nomeFantasia)) || (empty($this->logradouro)) || (empty($this->numero)) || (empty($this->estado)) || (empty($this->cidade)) || (empty($this->causa_defendida)) || (empty($this->descricao))) {
 			// Seta mensagem de erro
-			$msg_erro = "<strong>Erro!</strong> Por gentileza, preencha todos os campos! <br>";
+			$msg_erro .= "<strong>Erro de digitação!</strong> Por gentileza, preencha todos os campos! <br>";
+		}
+
+		# Verifica se existe campo numero é int
+		if (!(is_numeric($this->numero))) {
+			// Seta mensagem de erro
+			$msg_erro .= "<strong>Erro de digitação!</strong> O campo número deve ser do tipo inteiro! <br>";
 		}
 
 		return $msg_erro;
@@ -160,7 +169,7 @@
 				if (mysql_query($sql)) {
 					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> editado com sucesso :)&alert=success");
 				} else {
-					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> não pode ser editado com sucesso :( <a href='contato.php'>Contato</a>&alert=danger");
+					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> não pode ser editado com sucesso :( <br> Entre em contato com um administrado do sistema! <a href='contato.php'>Contato</a>&alert=danger");
 				}
 			}
 		}
@@ -172,8 +181,17 @@
 
 	}
 
-	public function delInstituicao() {
+	public function delInstituicao($id,$nome) {
 		# Recebe informações do form da pagina e realiza del
+		$sql = "UPDATE instituicoes SET ativo=0 WHERE id=".$id;
+
+		# Se desativado com sucesso exibe mensagem sucesso, senão, exibe erro
+		if (mysql_query($sql)) {
+			header("Location: instituicao.php?msg=<strong>" . $nome . "</strong> deletado com sucesso :) <br> Se você deseja reativar esta insituição futuramente entre em contato conosco! <a href='contato.php'>Contato</a>&alert=success");
+		} else {
+			echo $id . 'eae';
+			header("Location: instituicao.php?msg=<strong>" . $nome . "</strong> não pode ser deletado com sucesso :(<a href='contato.php'>Contato</a>&alert=danger");
+		}
 	}
 
 	public function verInstituicao($id) {
