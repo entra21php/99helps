@@ -212,17 +212,16 @@ class Usuario Extends Site {
 	}
 
 }
-public function delCadastro() {
+public function delCadastro($id) {
 		# Recebe informações do form da pagina e realiza del
-	$delete = "DELETE FROM usuarios_fisico WHERE id = " .$id;
-
+	$delete = "UPDATE usuarios_fisico SET ativo = 0 WHERE id =".$id;
 	if (mysql_query($delete)) {
 		echo '<p> Excluido com sucesso!</p>';
 	} else {
 		echo '<p>Não foi possível excluir</>';
 	}
 }
-
+	
 public function editCadastro() {
 
 		
