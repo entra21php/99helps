@@ -6,7 +6,7 @@
 
 	// As verificações em php serão feitas na metódo da classe que chama este arquivo
 	// 
-	
+
 ?>
 <div class="container">
 	<ol class="breadcrumb">
@@ -53,33 +53,17 @@
 						<label for="estado">Estado</label>
 						<select class="custom-select form-control" name="estado" value="<?=$this->estado?>">
 							<option selected>Selecione o estado</option>
-							<option value="AC">AC</option>
-							<option value="AL">AL</option>
-							<option value="AP">AP</option>
-							<option value="AM">AM</option>
-							<option value="BA">BA</option>
-							<option value="CE">CE</option>
-							<option value="DF">DF</option>
-							<option value="ES">ES</option>
-							<option value="GO">GO</option>
-							<option value="MA">MA</option>
-							<option value="MT">MT</option>
-							<option value="MS">MS</option>
-							<option value="MG">MG</option>
-							<option value="PA">PA</option>
-							<option value="PB">PB</option>
-							<option value="PR">PR</option>
-							<option value="PE">PE</option>
-							<option value="PI">PI</option>
-							<option value="RJ">RJ</option>
-							<option value="RN">RN</option>
-							<option value="RS">RS</option>
-							<option value="RO">RO</option>
-							<option value="RR">RR</option>
-							<option value="SC">SC</option>
-							<option value="SP">SP</option>
-							<option value="SE">SE</option>
-							<option value="TO">TO</option>
+							<?php
+							$sqlEstado = "SELECT distinct (estado) FROM cidades";	
+							$consultaEstado = mysql_query($sqlEstado);
+							while ($rsEstado = mysql_fetch_array($consultaEstado)) {
+								if ($rsEstado['estado']==$this->estado) {
+									echo '<option value="'.$rsEstado['id'].'" selected>'.$rsEstado['estado'].'</option>';
+								} else {
+									echo '<option value="'.$rsEstado['id'].'">'.$rsEstado['estado'].'</option>';
+								}
+							}
+							?>
 						</select>
 					</div>
 					<div class="form-group col-12 col-md-6">
@@ -87,10 +71,17 @@
 						<!-- AQUI VAI O FOR DAS CIDADES DO BANCO -->
 						<select class="custom-select form-control" name="fk_cidades" value="<?=$this->fk_cidades?>">
 							<option selected>Selecione a cidade</option>
-							<option value="1">São Paulo</option>
-							<option value="2">Blumenau</option>
-							<option value="3">Porto Alegre</option>
-							<option value="3">Florianópolis</option>
+							<?php
+							$sqlCity = "SELECT * FROM cidades";	
+							$consultaCity = mysql_query($sqlCity);
+							while ($rsCity = mysql_fetch_array($consultaCity)) {
+								if ($rsCity['id']==$this->cidade) {
+									echo '<option value="'.$rsCity['id'].'" selected>'.$rsCity['cidadenome'].'</option>';
+								} else {
+									echo '<option value="'.$rsCity['id'].'">'.$rsCity['cidadenome'].'</option>';
+								}
+							}
+							?>
 						</select>
 					</div>
 				</div>
@@ -100,9 +91,17 @@
 						<!-- AQUI VAI O FOR DAS CAUSAS DO BANCO -->
 						<select class="custom-select form-control" name="interesses" value="<?=$this->interesses?>">
 							<option selected>Selecione seus interesses</option>
-							<option value="1">Causa animal</option>
-							<option value="2">Pessoas em situação de rua</option>
-							<option value="3">Educação</option>
+							<?php
+							$sqlCausa = "SELECT * FROM interesses";	
+							$consultaCausa = mysql_query($sqlCausa);
+							while ($rsCausa = mysql_fetch_array($consultaCausa)) {
+								if ($rsCausa['id']==$this->causa_defendida) {
+									echo '<option value="'.$rsCausa['id'].'" selected>'.$rsCausa['nome'].'</option>';
+								} else {
+									echo '<option value="'.$rsCausa['id'].'">'.$rsCausa['nome'].'</option>';
+								}
+							}
+							?>		
 						</select>
 						<small id="causa-defendidaHelp" class="form-text text-muted">Você pode escolher quantos interesses quiser</small>
 					</div>	
@@ -118,7 +117,7 @@
 					<small id="emailHelp" class="form-text text-muted">Nós nunca compartilharemos seu email com ninguém.</small>
 				</div>
 				<div class="row">
-				<div class="form-group col-12 col-md-6">
+					<div class="form-group col-12 col-md-6">
 						<label for="senha">Senha</label>
 						<input type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
 					</div>
