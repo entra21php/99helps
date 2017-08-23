@@ -1,12 +1,29 @@
 <?php
+
+
+	# CLASSE PRINCIPAL
+require_once("classes/Site.class.php");
+
+	// INICIALIZAR CLASSES
+$site = new Site($hef=true);
+	// objeto class evento perfil
+
+
+
 require_once("include/header.php");
 	#  NESTA PAGINA FICARA O HTML DA EXIBIÇÃO BONITA
 	// Exibir a página html do perfil do evento, com paragrafo h1, tudo bonito...
 	// Será usando o php aqui somente para indexar os resultados e exibições
 	// mas somente de maneira resumida, ex:
-$sql = "SELECT * ,cidades.cidadenome FROM evento LEFT JOIN cidades ON cidades.id=evento.fk_cidade WHERE evento.id = " . $id;
+
+
+$sql = "SELECT * ,cidades.cidadenome FROM evento LEFT JOIN cidades ON cidades.id=evento.fk_cidade WHERE evento.id =5 ";
+
+
+// $sql = "SELECT * ,cidades.cidadenome FROM evento LEFT JOIN cidades ON cidades.id=evento.fk_cidade WHERE evento.id =4 " . $id;
 $consulta = mysql_query($sql);	
 $rs = mysql_fetch_array($consulta);
+//echo $sql;
 	// 
 	// ((mysql_num_rows($rs['img_perfil']))==1) ? "tem foto" : "nao tem foto"
 ?>
@@ -123,7 +140,7 @@ if ((isset($_GET['acao'])) && (($_GET['acao'])=="membros")) {
 									}
 									?>
 								</p>
-								<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO USUÁRIO -->
+								<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO EVENTO -->
 								<a href="#" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 							</div>
 						</div>
@@ -138,4 +155,3 @@ if ((isset($_GET['acao'])) && (($_GET['acao'])=="membros")) {
 	<?php 
 }
 ?>
-
