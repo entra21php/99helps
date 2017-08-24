@@ -1,49 +1,42 @@
 <?php
-	#  NESTA PAGINA FICARA O HTML DA EXIBIÇÃO BONITA (NILTON)
-	// Exibir a página html da listagem de todos as instituições separadas por usuário...
-	// o select estará sendo feito na classe que chama este arquivo..
-	// Será usando o php aqui somente para indexar os resultados e exibições
-	// mas somente de maneira resumida, ex:
-	// <?=$res['resultado_mysql']?_>
-
-	// As verificações em php serão feitas na metódo da classe que chama este arquivo
-	
-	#  A identação está organizada para exibir bonitinho no inspecionar elemento
-
-
-require_once("include/header.php");	
-
-
+	# ID = VARIAVEL DA SESSAO DO USUARIO PARA TESTES
+	$id = 32;
 ?>	
-
-
-<br><br><br>
-
 	<section class="container">
 		<p>
 			<ol class="breadcrumb text-center">
 			  <li class="breadcrumb-item"><a href="index.php">Pagina Inicial</a></li>
-			  <li class="breadcrumb-item active">Meus Eventos</li>
+			  <li class="breadcrumb-item active">Meus eventos</li>
 			</ol>
 		</p>
 
 		<div class="card">
-			<h6 class="card-header">Meus Eventos</h6>
+			<h6 class="card-header">Meus eventos</h6>
 			<div class="card-block">
 				<?php
 					// MELHORAR ESSE SELECT DE ACORDO COM O INSERT DA IMG E DESCRIÇÃO
 					// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
-
-					//SELECIONAR EVENTOS DE CADA USU
-					$sql = "SELECT evento.titulo, evento.data FROM evento
-							JOIN evento_usuarios ON id=fk_usuario
-							
-							";	
+					$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario =" . $id;	
 					$consulta = mysql_query($sql);
-					while ($rs = mysql_fetch_array($consulta)) {
+					while ($res = mysql_fetch_array($consulta)) {
+						$sqlEvento = "SELECT * FROM evento WHERE id =" . $res['fk_evento'];
+						$consultaEvento = mysql_query($sqlEvento);
+						$rs = mysql_fetch_array($consultaEvento);
 				?>
-				<br>
-				
+				<div class="card">
+					<div class="card-block">
+						<div class="row">
+							<div class="col-12 col-md-4">
+								<img src="images/<?=$rs['foto_capa']?>" class="img-fluid img-thumbnail">
+							</div>
+							<div class="col-12 col-md-8">
+								<h4 class="card-title top8"><?=$rs['titulo']?></h4>
+								<p class="card-text"><?=$rs['descricao']?></p>
+								<a href="?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
+							</div>
+						</div>
+					</div>
+				</div><br>
 				<?php 
 					}
 					if (mysql_num_rows($consulta)==0) {
@@ -61,8 +54,7 @@ require_once("include/header.php");
 				<div class="card">
 					<div class="card-block text-center">
 						<h4 class="card-title">Cadastre novo evento</h4>
-						<p class="card-text"></p>
-						<a href="?add" class="btn btn-success top8">Cadastrar meu evento <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
+						<a href="?add" class="btn btn-success top8">Cadastrar meu evento  <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
 					</div>
 				</div><br>
 			</div>
