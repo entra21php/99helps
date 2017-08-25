@@ -21,13 +21,12 @@
 			} elseif (isset($_GET['add'])) {
 				// ADD
 				$this->addEvento();
-			} elseif (isset($_GET['ver'])) {
+			} elseif ((isset($_GET['ver'])) && (isset($_GET['acao'])) ) {
 				// VER EVENTO
 				$this->verEvento($_GET['ver']);
 			} else {
 				// LISTAR EVENTO
 				$this->listEvento();
-				$this->formEvento();
 			}
 
 		}
@@ -157,7 +156,7 @@
 					}
 				}
 			}
-				# Chamando o formulário para exibição
+			# Chamando o formulário para exibição
 			if ($erro_id==false) {
 				$this->formEvento();
 			}
@@ -175,7 +174,6 @@
 		}
 
 		public function verEvento($id) {
-			$sql=" SELECT * FROM evento";
 			require_once('evento_perfil.php');
 		}
 		
@@ -196,11 +194,6 @@
 			require_once("evento_form.php");
 		}
 		public function listEvento() {
-				# Select da listagem e require do html da página (listagem)
-				// Neste list Evento devera aparecer as instituicoes que o usuÃ¡rio esta participando
-				// gerando links para ir direto a pagina da Evento... (ai ele pode edt, del, ver)
-				// Se ele nÃ£o participa de nenhum ou mesmo se participa haverÃ¡ um botao para criar nova Evento
-	   			// $$$ - O acesso a este mÃ©todo serÃ¡ feito no menu do usuÃ¡rio na navbar Minhas InsituiÃ§Ãµes
 			require_once("evento_list.php");
 		}
 			#  IMPLEMENTAÃ‡ÃƒO FUTURA DA CLASSE
@@ -208,6 +201,3 @@
 			// se a pessoa Ã© da ong e tÃ¡ na listagem de membros, haverÃ¡ uma barra de busca para ela convidar pessoas
 	}
 ?>
-
-
-
