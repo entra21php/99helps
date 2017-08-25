@@ -1,106 +1,129 @@
 <?php
+	$sql = "SELECT * ,cidades.cidadenome FROM evento LEFT JOIN cidades ON cidades.id=evento.fk_cidade WHERE evento.id=" . $id;
 
-
-	# CLASSE PRINCIPAL
-require_once("classes/Site.class.php");
-
-	// INICIALIZAR CLASSES
-$site = new Site($hef=true);
-	// objeto class evento perfil
-
-
-
-require_once("include/header.php");
-	#  NESTA PAGINA FICARA O HTML DA EXIBIÇÃO BONITA
-	// Exibir a página html do perfil do evento, com paragrafo h1, tudo bonito...
-	// Será usando o php aqui somente para indexar os resultados e exibições
-	// mas somente de maneira resumida, ex:
-
-
-$sql = "SELECT * ,cidades.cidadenome FROM evento LEFT JOIN cidades ON cidades.id=evento.fk_cidade WHERE evento.id =5 ";
-
-
-// $sql = "SELECT * ,cidades.cidadenome FROM evento LEFT JOIN cidades ON cidades.id=evento.fk_cidade WHERE evento.id =4 " . $id;
-$consulta = mysql_query($sql);	
-$rs = mysql_fetch_array($consulta);
-//echo $sql;
-	// 
-	// ((mysql_num_rows($rs['img_perfil']))==1) ? "tem foto" : "nao tem foto"
+	$consulta = mysql_query($sql);	
+	$rs = mysql_fetch_array($consulta);
 ?>
-<section class="row destaque perfil_evento">
-	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-3 top8">
-				<p><img src="images/foto_padrao.png" class="rounded mx-auto d-block" style="max-height: 150px;"></p>
-			</div>
-			<div class="col-12 col-md-8 top8">
-				<h3><?=$rs['titulo']?></h3>
-				<p class="text-justify"><?=$rs['descricao']?></p>
-				<!-- SÓ EXIBE ESSE BOTÃO SE O ID DA SESSÃO TIVER PERMISSÃO -->
-				<div class="btn-group top8" role="group">
-					<a href="evento.php?edt=<?=$id?>"><button type="button" class="btn btn-secundary">Editar evento</button></a>&nbsp;
-					<a href="evento.php?del=<?=$id?>&titulo=<?=$rs['titulo']?>"><button type="button" class="btn btn-outline-danger">Excluir evento</button></a>
+	<section class="row destaque">
+		<div class="container">
+			<div class="row">
+				<div style="background:url('images/images.jpg');background-size: 100% auto; background-position: center;" class="col-12 img-perfil-evento" >
+					<!-- <img src="images/images.jpg" class="img-perfil-evento"> -->&nbsp;
+				</div>
+				<div class="col-12 perfil_evento">
+					<h3><?=$rs['titulo']?></h3>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<section class="row bg-primary">
-	<div class="container" style="padding: 10px 0 0 0;">
-		<ul class="nav nav-tabs" style="margin-bottom: -1px; line-height: 35px;">
-			<li class="nav-item" style="padding-left: 5px;">
-				<a class="nav-link <?=($_GET['acao']=='informacoes')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=informacoes">Informações</a>
-			</li>
-			<li class="nav-item" style="padding-left: 5px;">
-				<a class="nav-link <?=($_GET['acao']=='eventos')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=eventos">Eventos</a>
-			</li>
-			<li class="nav-item" style="padding-left: 5px;">
-				<a class="nav-link <?=($_GET['acao']=='membros')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=membros">Membros</a>
-			</li>
-		</ul>
-	</div>		
-</section>		
-<?php
-			# Exibir a página de infomações
-if ((isset($_GET['acao'])) && (($_GET['acao'])=="informacoes")) {
-	?>
-	<!-- PÁGINA DE INFORMAÇÕES -->
-	<!-- IMPLEMENTAR ESTATITICAS -->
-	<section class="row">
+	<section class="row bg-primary">
 		<div class="container">
-			<div class="col-12 perfil_evento">
-				<h3>Localização</h3>
-				<p><?=$rs['logradouro']?>, <?=$rs['numero']?> - <?=$rs['cidade']?>/<?=$rs['estado']?></p>
-				<p>AKI VAI O GOOGLE MAPS COM O MAPA</p>
-			</div>
-		</div>		
-	</section>	
+			<div class="row" style="padding: 10px 0 0 0;">
+				<ul class="nav nav-tabs col-8" style="margin-bottom: -1px; line-height: 35px;">
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=($_GET['acao']=='informacoes')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=informacoes">Informações</a>
+					</li>
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=($_GET['acao']=='voluntarios')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=voluntarios">Volutários participantes</a>
+					</li>
+				</ul>
+				<div class="col-4 text-right">
+					<a href="evento.php?edt=<?=$id?>"><button type="button" class="btn btn-secundary">Editar evento</button></a>&nbsp;
+					<a href="evento.php?del=<?=$id?>&titulo=<?=$rs['titulo']?>"><button type="button" class="btn btn-danger">Excluir evento</button></a>
+				</div>
+			</div>	
+		</div>	
+	</section>		
+	<?php
+	# Exibir a página de infomações
+	if ((isset($_GET['acao'])) && (($_GET['acao'])=="informacoes")) {
+	?>
+		<!-- PÁGINA DE INFORMAÇÕES -->
+		<section class="row">
+			<div class="container">
+				<div class="col-12 perfil_instituicao">
+					<div class="row">
+						<div class="col-12 col-md-4" style="margin-top: 15px;">
+							<div class="card">
+								<div class="card-block">
+									<h5 class="card-title" style="margin-bottom: 8px !important;">Data do evento</h5>
+									<h4 class="card-text text-primary text-center">
+										<?=$rs['data']?>
+									</h4>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-4" style="margin-top: 15px;">
+							<div class="card">
+								<div class="card-block">
+									<h5 class="card-title" style="margin-bottom: 8px !important;">Voluntários confirmados</h5>
+									<h4 class="card-text text-success text-center">
+										<?php
+											$res = mysql_fetch_array(mysql_query("SELECT count(*) FROM evento_usuarios WHERE confirmacao='Confirmado'"));
+											echo $res[0];
+										?>
+									</h4>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-4" style="margin-top: 15px;">
+							<div class="card">
+								<div class="card-block">
+									<h5 class="card-title" style="margin-bottom: 8px !important;">Voluntários interessados</h5>
+									<h4 class="card-text text-warning text-center">
+										<?php
+											$res = mysql_fetch_array(mysql_query("SELECT count(*) FROM evento_usuarios WHERE confirmacao='Interessado'"));
+											echo $res[0];
+										?>
+									</h3>
+								</div>
+							</div>
+						</div>	
+					</div>
+
+					<h3 style="margin-top: 30px;">Descrição do evento</h3>
+					<p><?=$rs['descricao']?></p>
+
+					<h3 style="margin-top: 30px;">Localização</h3>
+					<p><?=$rs['logradouro']?>, <?=$rs['numero']?> - <?=$rs['cidadenome']?>/<?=$rs['estado']?></p>
+					<p>AKI VAI O GOOGLE MAPS COM O MAPA</p>
+				</div>
+			</div>		
+		</section>		
 	<?php 
-}
-if ((isset($_GET['acao'])) && (($_GET['acao'])=="eventos")) {
+	}
+
+	if ((isset($_GET['acao'])) && (($_GET['acao'])=="voluntarios")) {
 	?>
-	<!-- PÁGINA EVENTOS -->
-	<section class="row">
-		<div class="container">
-			<div class="col-12 perfil_evento">
+		<!-- PÁGINA VOLUNTÁRIOS PARTICIPANTES-->
+		<section class="row">
+			<div class="container">
 				<div class="row">
 					<?php 
-							// AQUI VAI O SELECT DOS EVENTOS DA ONG
-					$sql = "".$id;	
+					// SELECT QUE PUXA SOMENTE OS USUARIOS DA ONG QUE ESTA ACESSANDO
+					$sql = "SELECT usuarios_fisico.id,usuarios_fisico.nome,confirmacao FROM evento_usuarios LEFT JOIN usuarios_fisico ON usuarios_fisico.id=evento_usuarios.fk_usuario WHERE fk_evento=".$id ." ORDER BY 3";
 					$consulta = mysql_query($sql);
 					while ($rs = mysql_fetch_array($consulta)) {
 						?>
-						<div class="col-12 col-md-3">
+						<div class="col-12 col-md-3" style="margin-top: 30px;">
 							<div class="card">
 								<img class="card-img-top img-fluid" src="images/evento1.jpg">
-								<div class="card-block">
-									<h4 class="card-title">Reforma carroça do seu zé</h4>
-									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-									<small class="card-text">
-										<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00 <span class="badge badge-default">Finalizado</span><br>
-									</small>
-									<a href="#" class="btn btn-sm btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+								<div class="card-block text-center">
+									<h4 class="card-title" style="margin-bottom: 8px !important;"><?=$rs['nome']?></h4>
+									<p class="card-text">
+										<?php 
+										if ($rs['confirmacao']=="Confirmado") {
+											echo '<span class="badge badge-success">Confirmado</span>';
+										} elseif ($rs['confirmacao']=="Interessado") {
+											echo '<span class="badge badge-warning">Interessado</span>';
+										} else {
+											echo '<span class="badge badge-danger">Não comparecerá</span>';
+										}
+										?>
+									</p>
+									<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO EVENTO -->
+									<a href="#" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 								</div>
 							</div>
 						</div>
@@ -108,50 +131,9 @@ if ((isset($_GET['acao'])) && (($_GET['acao'])=="eventos")) {
 					}
 					?>
 				</div>
+				<br>		
 			</div>
-		</div>		
-	</section>		
-	<?php 
-}
-if ((isset($_GET['acao'])) && (($_GET['acao'])=="membros")) {
-	?>
-	<!-- PÁGINA MEMBROS -->
-	<section class="row">
-		<div class="container">
-			<div class="row">
-				<?php 
-						// SELECT QUE PUXA SOMENTE OS USUARIOS DA ONG QUE ESTA ACESSANDO
-				$sql = "SELECT usuarios_fisico.nome,usuarios_fisico.sobrenome,evento_usuarios.nivel_acesso FROM usuarios_eventos
-				LEFT JOIN usuarios_fisico ON usuarios_fisico.id=evento_usuarios.fk_usuario WHERE fk_evento=".$id;	
-				$consulta = mysql_query($sql);
-				while ($rs = mysql_fetch_array($consulta)) {
-					?>
-					<div class="col-12 col-md-3" style="margin-top: 30px;">
-						<div class="card">
-							<img class="card-img-top img-fluid" src="images/evento1.jpg">
-							<div class="card-block text-center">
-								<h4 class="card-title" style="margin-bottom: 8px !important;">João de Paula</h4>
-								<p class="card-text">
-									<?php 
-									if ($rs['nivel_acesso']=="Membro") {
-										echo '<span class="badge badge-default">Membro</span>';
-									} else {
-										echo '<span class="badge badge-warning">Administrador</span>';
-									}
-									?>
-								</p>
-								<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO EVENTO -->
-								<a href="#" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-							</div>
-						</div>
-					</div>
-					<?php
-				}
-				?>
-			</div>
-			<br>		
-		</div>
-	</section>
-	<?php 
-}
+		</section>
+<?php 
+	}
 ?>
