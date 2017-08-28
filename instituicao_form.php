@@ -2,6 +2,7 @@
 	#  FORMULÁRIO DE ADD E EDIT - MÓDULO INSTITUIÇÃO
 	// Desenvolvido por: João de Paula e Nilton Souza
 ?>
+		<br>
 		<section class="container">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a href="index.php">Página Inicial</a></li>
@@ -12,7 +13,7 @@
 			<div class="card">
 				<h6 class="card-header"><?=$page_title?></h6>
 				<div class="card-block">
-					<form method="POST" name="form">
+					<form method="POST" name="form" enctype="multipart/form-data">
 						<div class="row">
 							<div class="form-group col-12">
 								<label for="razaoSocial">Razão Social</label>
@@ -25,6 +26,13 @@
 								<label for="nomeFantasia">Nome Fantasia</label>
 								<input type="text" class="form-control" id="nomeFantasia" name="nomeFantasia" aria-describedby="nomeFantasialHelp" placeholder="Ex: Amiguinho Feliz" value="<?=$this->nomeFantasia?>">
 								<small id="razaoSocialHelp" class="form-text text-muted">Você será chamado pelo Nome Fantasia dentro de nosso sistema</small>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-12">
+								<label for="imagem_perfil">Imagem de Perfil</label>
+								<input type="file" class="form-control-file" id="imagem_perfil" name="fileToUpload" aria-describedby="fileHelp">
+								<small id="razaoSocialHelp" class="form-text text-muted">Use sua logo como imagem de perfil, mas somente arquivos PNG, JPG e JPEG :)</small>
 							</div>
 						</div>
 						<div class="row">
