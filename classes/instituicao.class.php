@@ -11,6 +11,7 @@
 	public $cidade;
 	public $causa_defendida;
 	public $descricao;
+	public $imagem_perfil;
 
 	public function __construct() {		
 
@@ -27,8 +28,18 @@
 			// ADD
 			$this->addInstituicao();
 		} elseif ((isset($_GET['ver'])) && (isset($_GET['acao'])) ) {
-			// VER INSTITUIÇÃO
-			$this->verInstituicao($_GET['ver']);
+
+			// Verifica se existe o registro no banco
+			$sql = "SELECT * FROM instituicoes WHERE id = " . $_GET['ver'];
+			$consulta = mysql_query($sql);
+
+			if ((mysql_num_rows($consulta))==1) {
+				// VER INSTITUIÇÃO
+				$this->verInstituicao($_GET['ver']);
+			} else {
+				header("Location: instituicao.php?msg=<strong>OPA! </strong> Parece que a instituição que você está tentando acessar não existe =(&alert=danger");
+			}
+
 		} elseif (isset($_GET['del'])) {
 			// VER INSTITUIÇÃO
 			$this->delInstituicao($_GET['del'],$_GET['nome_fantasia']);
@@ -82,12 +93,12 @@
 	public function getVariaveis() {
 		# Recebe os valores do formulário e atribui as variaveis
 		$this->razaoSocial 		= $_POST['razaoSocial'];
-		$this->nomeFantasia 	= $_POST['nomeFantasia'];
+		$this->nomeFantasia 		= $_POST['nomeFantasia'];
 		$this->logradouro 		= $_POST['logradouro'];
 		$this->numero 			= $_POST['numero'];
 		$this->estado 			= $_POST['estado'];
 		$this->cidade 			= $_POST['cidade'];
-		$this->causa_defendida 	= $_POST['causa_defendida'];
+		$this->causa_defendida 		= $_POST['causa_defendida'];
 		$this->descricao	 	= $_POST['descricao'];
 	}
 
@@ -102,12 +113,13 @@
 		}
 
 		# Verifica se existe campo numero é int
-		if (!(is_numeric($this->numero))) {
+		if (!(is_numeric($this->numero)) && !(empty($this->numero))) {
 			// Seta mensagem de erro
 			$msg_erro .= "<strong>Erro de digitação!</strong> O campo número deve ser do tipo inteiro! <br>";
 		}
 
 		return $msg_erro;
+		
 	}
 
 	public function addInstituicao() {
@@ -119,18 +131,63 @@
 			// Recebe as variaveis do formulário
 			$this->getVariaveis();
 
+			#  Configurações do upload de foto
+			// Diretorio pra salvar
+			$target_dir = "uploads/";
+			// Novo nome aleatorio da imagem
+			$this->imagem_perfil = rand(100000000,999999999) ;
+			// Nome completo
+			$nome_novo =  $target_dir . $this->imagem_perfil .'.'. pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION);
+			// Verifica se o arquivo ja existe no diretorio
+			if (file_exists($nome_novo)) {
+				$erro = true;
+			}
+			// Retorna nome do arquivo (basename)
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			// Caminho completo com extensao
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+			#  Verificações
+			// Verifica se a imagem é real
+			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			// Se a imagem é real, exibe msg
+			if($check === false) {
+				$erro = true;
+			}
+			// Verifica o tamanho
+			if ($_FILES["fileToUpload"]["size"] > 500000) {
+				$erro = true;
+			}
+			// Verifica o formato da imagem
+			if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+				$erro = true;
+			}
+
 			// O IF chama a verificação de dados do formulário
 			// se houver erro exibe o erro, senão executa o insert
 			if ((strlen($this->getVerificacao()))>0) {
 				alert($this->getVerificacao(),"danger");
 			} else {
-				$sql = "INSERT INTO instituicoes(razao_social,nome_fantasia,logradouro,numero,estado,fk_cidade,causa_defendida,descricao) VALUES ('$this->razaoSocial','$this->nomeFantasia','$this->logradouro',$this->numero,'$this->estado',$this->cidade,$this->causa_defendida,'$this->descricao')";
+				$sql = "INSERT INTO instituicoes(razao_social,nome_fantasia,logradouro,numero,estado,fk_cidade,causa_defendida,descricao,img_perfil) VALUES ('$this->razaoSocial','$this->nomeFantasia','$this->logradouro',$this->numero,'$this->estado',$this->cidade,$this->causa_defendida,'$this->descricao'";
+
+				// Completa o SQL
+				if ($erro!=true) {
+					$sql .= ",'$this->imagem_perfil.".$imageFileType.")";
+				} else {
+					$sql .= ",null)";
+				}
 
 				# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 				if (mysql_query($sql)) {
-					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> cadastrado com sucesso :)&alert=success");
+					// Mover o arquivo upado para a pasta uploads
+					if ($erro!=true) {
+						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
+						header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> cadastrado com sucesso :)&alert=success");
+					} else {
+						header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> foi cadastrado com sucesso, mas não foi possivel upar a foto da instituição por erro de validação :(&alert=warning");
+					}
 				} else {
-					mysql_query($sql) or die(mysql_error());
+					// Redirecionar
 					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> não foi cadastrada no banco devido a um erro, contate um administrador do sistema! <a href='index.php'>contato</a>&alert=danger");
 				}
 			}
@@ -158,17 +215,63 @@
 			// Recebe as variaveis do formulário
 			$this->getVariaveis();
 
+			#  Configurações do upload de foto
+			// Diretorio pra salvar
+			$target_dir = "uploads/";
+			// Novo nome aleatorio da imagem
+			$this->imagem_perfil = rand(100000000,999999999) ;
+			// Nome completo
+			$nome_novo =  $target_dir . $this->imagem_perfil .'.'. pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION);
+			// Verifica se o arquivo ja existe no diretorio
+			if (file_exists($nome_novo)) {
+				$erro = true;
+			}
+			// Retorna nome do arquivo (basename)
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			// Caminho completo com extensao
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+			#  Verificações
+			// Verifica se a imagem é real
+			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			// Se a imagem é real, exibe msg
+			if($check === false) {
+				$erro = true;
+			}
+			// Verifica o tamanho
+			if ($_FILES["fileToUpload"]["size"] > 500000) {
+				$erro = true;
+			}
+			// Verifica o formato da imagem
+			if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+				$erro = true;
+			}
+
 			// O IF chama a verificação de dados do formulário
 			// se houver erro exibe o erro, senão executa o insert
 			if ((strlen($this->getVerificacao()))>0) {
 				alert($this->getVerificacao(),"danger");
 			} else {
-				$sql = "UPDATE instituicoes SET razao_social='$this->razaoSocial', nome_fantasia='$this->nomeFantasia', logradouro='$this->logradouro', numero=$this->numero, estado='$this->estado', fk_cidade=$this->cidade, causa_defendida=$this->causa_defendida, descricao='$this->descricao' WHERE id=".$id;
+				$sql = "UPDATE instituicoes SET razao_social='$this->razaoSocial', nome_fantasia='$this->nomeFantasia', logradouro='$this->logradouro', numero=$this->numero, estado='$this->estado', fk_cidade=$this->cidade, causa_defendida=$this->causa_defendida, descricao='$this->descricao'";
+
+				// Completa o SQL
+				if ($erro!=true) {
+					$sql .= ",img_perfil='$this->imagem_perfil.".$imageFileType."' WHERE id=".$id;
+				} else {
+					$sql .= " WHERE id=".$id;
+				}
 
 				# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 				if (mysql_query($sql)) {
-					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> editado com sucesso :)&alert=success");
+					// Mover o arquivo upado para a pasta uploads
+					if ($erro!=true) {
+						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
+						header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> editado com sucesso :)&alert=success");
+					} else {
+						header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> foi editado, mas não foi possivel editar a foto da instituição por erro de validação :(&alert=warning");
+					}
 				} else {
+					// Redirecionar
 					header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> não pode ser editado com sucesso :( <br> Entre em contato com um administrado do sistema! <a href='contato.php'>Contato</a>&alert=danger");
 				}
 			}
