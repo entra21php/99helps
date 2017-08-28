@@ -2,7 +2,6 @@
 	# CLASSE PRINCIPAL
 	require_once("classes/site.class.php");
 	$site = new Site($hef=true);
-
 ?>
 		<section class="row quem-somos destaque text-center">
 			<div class="container">
@@ -79,7 +78,6 @@
 							<img class="card-img-top img-fluid" src="images/evento1.jpg" alt="Card image cap">
 							<div class="card-block">
 								<h4 class="card-title">Reforma carroça do seu zé</h4>
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								<small class="card-text">
 									<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00<br>
 									&nbsp;<i class="fa fa-user fa-lg"></i> <a href="#">ONG de Rua</a><br>
@@ -93,7 +91,6 @@
 							<img class="card-img-top img-fluid" src="images/evento1.jpg" alt="Card image cap">
 							<div class="card-block">
 								<h4 class="card-title">Reforma carroça do seu zé</h4>
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								<small class="card-text">
 									<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00<br>
 									&nbsp;<i class="fa fa-user fa-lg"></i> <a href="#">ONG de Rua</a><br>
@@ -107,7 +104,6 @@
 							<img class="card-img-top img-fluid" src="images/evento1.jpg" alt="Card image cap">
 							<div class="card-block">
 								<h4 class="card-title">Reforma carroça do seu zé</h4>
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								<small class="card-text">
 									<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00<br>
 									&nbsp;<i class="fa fa-user fa-lg"></i> <a href="#">ONG de Rua</a><br>
@@ -121,7 +117,6 @@
 							<img class="card-img-top img-fluid" src="images/evento1.jpg" alt="Card image cap">
 							<div class="card-block">
 								<h4 class="card-title">Reforma carroça do seu zé</h4>
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								<small class="card-text">
 									<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00<br>
 									&nbsp;<i class="fa fa-user fa-lg"></i> <a href="#">ONG de Rua</a><br>
@@ -135,7 +130,6 @@
 							<img class="card-img-top img-fluid" src="images/evento1.jpg" alt="Card image cap">
 							<div class="card-block">
 								<h4 class="card-title">Reforma carroça do seu zé</h4>
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								<small class="card-text">
 									<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00<br>
 									&nbsp;<i class="fa fa-user fa-lg"></i> <a href="#">ONG de Rua</a><br>
@@ -149,7 +143,6 @@
 							<img class="card-img-top img-fluid" src="images/evento1.jpg" alt="Card image cap">
 							<div class="card-block">
 								<h4 class="card-title">Reforma carroça do seu zé</h4>
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 								<small class="card-text">
 									<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00<br>
 									&nbsp;<i class="fa fa-user fa-lg"></i> <a href="#">ONG de Rua</a><br>
