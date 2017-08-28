@@ -8,17 +8,22 @@
 	<div class="card">
 		<h6 class="card-header"><?=$page_title?></h6>
 		<div class="card-block">
-			<form method="POST" name="form">
+			<form method="POST" name="form" enctype="multipart/form-data">
 				<div class="row">
-					<div class="form-group col-9">
+					<div class="form-group col-8">
 						<label for="titulo">Título</label>
 						<input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="titulo" placeholder="" value="<?=$this->titulo?>">
-						<small id="titulo" class="form-text text-muted"></small>
+						<small id="titulo" class="form-text text-muted">Esse será o título que ficará no evento</small>
 					</div>
-					<div class="form-group col-3">
+					<div class="form-group col-2">
 						<label for="data">Data</label>
-						<input type="text" class="form-control" id="data" name="data" aria-describedby="data" placeholder="EX: 01/01/2017" value="<?=$this->data?>">
-						<small id="data" class="form-text text-muted"></small>						
+						<input type="text" class="form-control" id="data" name="data" aria-describedby="data" placeholder="EX: 09/05/2017 08:00:00" value="<?=str_replace("-","/",ParseDate($this->data,'m-d-Y'))?>">
+						<small id="data" class="form-text text-muted">Ultiize o formato de data: D/M/A H:M:S</small>						
+					</div>
+					<div class="form-group col-2">
+						<label for="hora">Hora</label>
+						<input type="text" class="form-control" id="hora" name="hora" aria-describedby="hora" placeholder="EX: 09/05/2017 08:00:00" value="<?=ParseDate($this->data,'H:i:s')?>">
+						<small id="hora" class="form-text text-muted">Ultiize o formato de hora:H:M:S</small>						
 					</div>
 				</div>
 				<div class="row">
@@ -26,14 +31,16 @@
 						<label for="descricao">Descrição</label>
 						<textarea type="text" class="form-control" id="descricao" name="descricao" aria-describedby="descricao" placeholder="" rows="4"><?=$this->descricao?></textarea>
 						<small id="descricao" class="form-text text-muted">Escreva um breve texto sobre o evento</small>
-					</div>	
-
-					<div class="form-group col-3">
-						<label for="foto_capa">Foto</label>
-						<input type="file" class="form-control" id="foto_capa" name="foto_capa" aria-describedby="foto_capa" placeholder="" value="<?=$this->foto_capa?>">
-						<small id="foto_capa" class="form-text text-muted">Insira a foto de capa</small>
 					</div>
-				</div>
+				</div>		
+
+					<div class="row">
+							<div class="form-group col-12">
+								<label for="foto_capa">Foto</label>
+								<input type="file" class="form-control-file" id="foto_capa" name="fileToUpload" aria-describedby="fileHelp">
+								<small id="fileHelp" class="form-text text-muted">Use sua logo como imagem de perfil, mas somente arquivos PNG, JPG e JPEG :)</small>
+							</div>
+						</div>
 
 				<div class="row">
 					<div class="form-group col-9 ">
