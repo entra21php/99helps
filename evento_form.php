@@ -9,58 +9,51 @@
 		<h6 class="card-header"><?=$page_title?></h6>
 		<div class="card-block">
 			<form method="POST" name="form" enctype="multipart/form-data">
+				
 				<div class="row">
-					<div class="form-group col-8">
+					<div class="form-group col-6">
 						<label for="titulo">Título</label>
-						<input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="titulo" placeholder="" value="<?=$this->titulo?>">
+						<input type="text" class="form-control" id="titulo" name="titulo" aria-describedby="titulo" placeholder="Ex: Arrecadação de agasalhos" value="<?=$this->titulo?>">
 						<small id="titulo" class="form-text text-muted">Esse será o título que ficará no evento</small>
 					</div>
-					<div class="form-group col-2">
+					<div class="form-group col-3">
 						<label for="data">Data</label>
-						<input type="text" class="form-control" id="data" name="data" aria-describedby="data" placeholder="EX: 09/05/2017 08:00:00" value="<?=str_replace("-","/",ParseDate($this->data,'m-d-Y'))?>">
-						<small id="data" class="form-text text-muted">Ultiize o formato de data: D/M/A H:M:S</small>						
+						<input type="text" class="form-control" id="data" name="data" aria-describedby="data" placeholder="Ex: 09/05/2017" value="<?=str_replace("-","/",ParseDate($this->data,'m-d-Y'))?>">
+						<small id="data" class="form-text text-muted">Ultiize o formato de data: D/M/A</small>
 					</div>
-					<div class="form-group col-2">
+					<div class="form-group col-3">
 						<label for="hora">Hora</label>
-						<input type="text" class="form-control" id="hora" name="hora" aria-describedby="hora" placeholder="EX: 09/05/2017 08:00:00" value="<?=ParseDate($this->data,'H:i:s')?>">
-						<small id="hora" class="form-text text-muted">Ultiize o formato de hora:H:M:S</small>						
+						<input type="text" class="form-control" id="hora" name="hora" aria-describedby="hora" placeholder="Ex: 08:30:00" value="<?=ParseDate($this->data,'H:i:s')?>">
+						<small id="hora" class="form-text text-muted">Ultiize o formato de hora: H:M:S</small>		
 					</div>
 				</div>
+
 				<div class="row">
-					<div class="form-group col-9">
+					<div class="form-group col-6">
 						<label for="descricao">Descrição</label>
-						<textarea type="text" class="form-control" id="descricao" name="descricao" aria-describedby="descricao" placeholder="" rows="4"><?=$this->descricao?></textarea>
+						<textarea type="text" class="form-control" id="descricao" name="descricao" aria-describedby="descricao" placeholder="Ex: Se junte a este evento, onde precisamos de agasalhos de todos os tamanhos para doação à famílias necessitadas" rows="4"><?=$this->descricao?></textarea>
 						<small id="descricao" class="form-text text-muted">Escreva um breve texto sobre o evento</small>
 					</div>
-				</div>		
-
-					<div class="row">
-							<div class="form-group col-12">
-								<label for="foto_capa">Foto</label>
-								<input type="file" class="form-control-file" id="foto_capa" name="fileToUpload" aria-describedby="fileHelp">
-								<small id="fileHelp" class="form-text text-muted">Use sua logo como imagem de perfil, mas somente arquivos PNG, JPG e JPEG :)</small>
-							</div>
-						</div>
+					<div class="form-group col-6">
+						<label for="foto_capa">Foto</label>
+						<input type="file" class="form-control-file" id="foto_capa" name="fileToUpload" aria-describedby="fileHelp">
+						<small id="fileHelp" class="form-text text-muted">Use sua logo como imagem de perfil, mas somente arquivos PNG, JPG e JPEG :)</small>
+					</div>
+				</div>
 
 				<div class="row">
 					<div class="form-group col-9 ">
 						<label for="logradouro">Logradouro</label>
-						<input type="text" class="form-control" id="logradouro" name="logradouro" placeholder="Ex: Rua General Osório" value="<?=$this->logradouro?>">
-					</div>	
-					
+						<input type="text" class="form-control" id="logradouro" name="logradouro" placeholder="Ex: Rua General Osório" value="<?=$this->logradouro?>"><small id="logradouro" class="form-text text-muted">Nome da rua onde acontecerá o evento </small>
+					</div>
 					<div class="form-group col-3">
 						<label for="numero">Número</label>
-						<input type="text" class="form-control" pattern="[0-9]+$" id="numero" name="numero" placeholder="Ex: 1568" value="<?=$this->numero?>">
+						<input type="text" class="form-control" pattern="[0-9]+$" id="numero" name="numero" placeholder="Ex: 1568" value="<?=$this->numero?>"><small id="numero" class="form-text text-muted">Número da rua onde acontecerá o evento</small>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="form-group col-4 ">
-						<label for="fk_instituicao">Instituição</label>
-						<input type="text" class="form-control" id="fk_instituicao" name="fk_instituicao" placeholder="Ongs" value="<?=$this->fk_instituicao?>">
-					</div>	
-
-					<div class="form-group col-4">
+					<div class="form-group col-6">
 						<label for="estado">Estado</label>
 						<select class="custom-select form-control" name="estado" value="<?=$this->estado?>">
 							<option selected>Selecione o estado</option>
@@ -75,7 +68,7 @@
 							?>
 						</select>
 					</div>
-					<div class="form-group col-4">
+					<div class="form-group col-6">
 						<label for="cidade">Cidade</label>
 						<select class="custom-select form-control" name="cidade" value="<?=$this->cidade?>">
 							<option selected>Selecione a cidade</option>
@@ -92,10 +85,14 @@
 							?>
 						</select>
 					</div>
+					<div class="form-group col-12 ">
+						<label for="fk_instituicao">Instituição</label>
+						<input type="text" class="form-control" id="fk_instituicao" name="fk_instituicao" placeholder="Ongs" value="<?=$this->fk_instituicao?>"><small id="instituicao" class="form-text text-muted">Escolha a instituição que participará do evento</small>
+					</div>
 				</div>
-				<div class="col-xs-7">
-					<input type="submit" class="btn btn-primary" name="cadastra" value="Cadastrar">
-				</div>
+					<div class="col-xs-7">
+						<input type="submit" class="btn btn-primary" name="cadastra" value="Cadastrar">
+					</div>
 			</form>
 		</div>
 	</div>
