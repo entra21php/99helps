@@ -49,7 +49,7 @@
 								<div class="card-block">
 									<h5 class="card-title" style="margin-bottom: 8px !important;">Data do evento</h5>
 									<h4 class="card-text text-primary text-center">
-										<?=$rs['data']?>
+										<?=ParseDate($rs['data'],'d/m/Y H:i');?>
 									</h4>
 								</div>
 							</div>
@@ -59,11 +59,11 @@
 								<div class="card-block">
 									<h5 class="card-title" style="margin-bottom: 8px !important;">Voluntários confirmados</h5>
 									<h4 class="card-text text-success text-center">
-										<?php
-											$res = mysql_fetch_array(mysql_query("SELECT count(*) FROM evento_usuarios WHERE confirmacao='Confirmado'"));
-											echo $res[0];
-										?>
-									</h4>
+							 			<?php
+							 				$res = mysql_fetch_array(mysql_query("SELECT count(*) FROM evento_usuarios WHERE  confirmacao='Confirmado'"));
+							 				echo $res[0];
+							 			?>
+							 		</h4>
 								</div>
 							</div>
 						</div>
