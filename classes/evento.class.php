@@ -39,7 +39,6 @@
 				$this->titulo 			= null;
 				$this->descricao 		= null;
 				$this->data 			= null;
-				$this->foto_capa 		= "";
 				$this->fk_instituicao   = null;
 				$this->logradouro 		= null;
 				$this->numero 			= null;
@@ -59,8 +58,7 @@
 				// Set
 				$this->titulo 			= $rsvar['titulo'];
 				$this->descricao 		= $rsvar['descricao'];
-				$this->data 			= $rsvar['data'];
-				$this->foto_capa 		= $rsvar['foto_capa'];
+				$this->data 			= $rsvar['data'];		
 				$this->fk_instituicao 	= $rsvar['fk_instituicao'];
 				$this->logradouro 		= $rsvar['logradouro'];
 				$this->numero 			= $rsvar['numero'];
@@ -74,8 +72,7 @@
 			# Recebe os valores do formulÃ¡rio e atribui as variaveis
 			$this->titulo 			= $_POST['titulo'];
 			$this->descricao 		= $_POST['descricao'];
-			$this->data 			= $_POST['data'];
-			$this->foto_capa 		= $_POST['foto_capa'];
+			$this->data 			= ParseDate($_POST['data'],'Y-m-d') . " " . $_POST['hora'];
 			$this->fk_instituicao 	= $_POST['fk_instituicao'];
 			$this->logradouro 		= $_POST['logradouro'];
 			$this->numero 			= $_POST['numero'];
@@ -102,15 +99,47 @@
 				// Recebe as variaveis do formulÃ¡rio
 				$this->getVariaveis();
 
+				#  Configurações do upload de foto
+			// Diretorio pra salvar
+			$target_dir = "uploads/";
+			// Novo nome aleatorio da imagem
+			$this->foto_capa = rand(100000000,999999999) ;
+			// Nome completo
+			$nome_novo =  $target_dir . $this->foto_capa .'.'. pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION);
+			// Verifica se o arquivo ja existe no diretorio
+			if (file_exists($nome_novo)) {
+				$erro = true;
+			}
+			// Retorna nome do arquivo (basename)
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			// Caminho completo com extensao
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+			#  Verificações
+			// Verifica se a imagem é real
+			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			// Se a imagem é real, exibe msg
+			if($check === false) {
+				$erro = true;
+			}
+			// Verifica o tamanho
+			if ($_FILES["fileToUpload"]["size"] > 500000) {
+				$erro = true;
+			}
+			// Verifica o formato da imagem
+			if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+				$erro = true;
+			}
+
 				// O IF chama a verificaÃ§Ã£o de dados do formulÃ¡rio
 				// se houver erro exibe o erro, senÃ£o executa o insert
 				if ((strlen($this->getVerificacao()))>0) {
 					alert($this->getVerificacao(),"danger");
 				} else {
-					$sql = "INSERT INTO evento(titulo,descricao,data,foto_capa,fk_instituicao,logradouro,numero,estado,fk_cidade) VALUES ('$this->titulo','$this->descricao','$this->data','$this->foto_capa','$this->fk_instituicao','$this->logradouro', '$this->numero', '$this->estado', '$this->cidade')";
-					echo $this->descricao;
+					$sql = "INSERT INTO evento(titulo,descricao,data,foto_capa,fk_instituicao,logradouro,numero,estado,fk_cidade) VALUES ('$this->titulo','$this->descricao','$this->data','$this->foto_capa.".$imageFileType."','$this->fk_instituicao','$this->logradouro', $this->numero, '$this->estado', '$this->cidade')";
 					# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 					if (mysql_query($sql)) {
+						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
 						alert("<strong>" . $this->titulo . "</strong> cadastrado com sucesso :)","success");
 						// HEADER QUE VAI PRA LIST_INSTITICAO COM O PARAMETRO DA MSG SUCESSO
 					} else {
@@ -149,6 +178,7 @@
 					echo $sql;
 					# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 					if (mysql_query($sql)) {
+						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
 						alert("<strong>" . $this->titulo . "</strong> editado com sucesso :)","success");
 					 	// HEADER QUE VAI PRA LIST_INSTITICAO COM O PARAMETRO DA MSG SUCESSO
 					} else {
