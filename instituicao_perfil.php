@@ -7,15 +7,12 @@
 	$sql = "SELECT * ,cidades.cidadenome FROM instituicoes LEFT JOIN cidades ON cidades.id=instituicoes.fk_cidade WHERE instituicoes.id = " . $id;
 	$consulta = mysql_query($sql);	
 	$rs = mysql_fetch_array($consulta);
-
-	// 
-	// ((mysql_num_rows($rs['img_perfil']))==1) ? "tem foto" : "nao tem foto"
 ?>
 		<section class="row destaque perfil_instituicao">
 			<div class="container">
 				<div class="row">
-					<div class="col-12 col-md-3 top8">
-						<p><img src="images/foto_padrao.png" class="rounded mx-auto d-block" style="max-height: 150px;"></p>
+					<div class="col-12 col-md-3 top8 text-center">
+						<?=(($rs['img_perfil'])!=null) ? '<p><img src="uploads/'.$rs['img_perfil'].'" class="rounded img-fluid" style="max-height: 150px;"></p>' : '<p><img src="images/foto_padrao.png" class="rounded img-fluid" style="max-height: 150px;"></p>';?>
 					</div>
 					<div class="col-12 col-md-8 top8">
 						<h3><?=$rs['nome_fantasia']?></h3>
@@ -54,7 +51,44 @@
 		<section class="row">
 			<div class="container">
 				<div class="col-12 perfil_instituicao">
-					<h3>Localização</h3>
+					<h3>Estatísticas</h3>
+					<div class="row">
+						<div class="col-12 col-md-6" style="margin-top: 15px;">
+							<div class="card">
+								<div class="card-block">
+									<h5 class="card-title" style="margin-bottom: 8px !important;">Frequência da Instituição<small> últimos 30 dias</small></h5>
+									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
+									<small class="card-text">
+										02/08/17 às 07:00
+									</small>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-6" style="margin-top: 15px;">
+							<div class="card">
+								<div class="card-block">
+									<h5 class="card-title" style="margin-bottom: 8px !important;">Quantidade de eventos<small> últimos 30 dias</small></h5>
+									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
+									<small class="card-text">
+										02/08/17 às 07:00
+									</small>
+								</div>
+							</div>
+						</div>	
+						<div class="col-12 col-md-6" style="margin-top: 30px;">
+							<div class="card">
+								<div class="card-block">
+									<h5 class="card-title" style="margin-bottom: 8px !important;">Adesão de membros<small> últimos 30 dias</small></h5>
+									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
+									<small class="card-text">
+										02/08/17 às 07:00
+									</small>
+								</div>
+							</div>
+						</div>		
+					</div>
+
+					<h3 style="margin-top: 30px;">Localização</h3>
 					<p><?=$rs['logradouro']?>, <?=$rs['numero']?> - <?=$rs['cidadenome']?>/<?=$rs['estado']?></p>
 					<p>AKI VAI O GOOGLE MAPS COM O MAPA</p>
 				</div>
@@ -69,17 +103,16 @@
 			<div class="container">
 				<div class="col-12 perfil_instituicao">
 					<div class="row">
-						<?php 
-							// AQUI VAI O SELECT DOS EVENTOS DA ONG
+						<?php
 							$sql = "".$id;	
 							$consulta = mysql_query($sql);
-							while ($rs = mysql_fetch_array($consulta)) {
+							// while ($rs = mysql_fetch_array($consulta)) {
 						?>
-							<div class="col-12 col-md-3">
+							<div class="col-12 col-md-3" style="margin-top: 30px;">
 								<div class="card">
 									<img class="card-img-top img-fluid" src="images/evento1.jpg">
 									<div class="card-block">
-										<h4 class="card-title">Reforma carroça do seu zé</h4>
+										<h4 class="card-title" style="margin-bottom: 8px !important;">Reforma carroça do seu zé</h4>
 										<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
 										<small class="card-text">
 											<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00 <span class="badge badge-default">Finalizado</span><br>
@@ -89,7 +122,7 @@
 								</div>
 							</div>
 						<?php
-							}
+							// }
 						?>
 					</div>
 				</div>
@@ -103,18 +136,16 @@
 		<section class="row">
 			<div class="container">
 				<div class="row">
-					<?php 
-						// SELECT QUE PUXA SOMENTE OS USUARIOS DA ONG QUE ESTA ACESSANDO
-						$sql = "SELECT usuarios_fisico.nome,usuarios_fisico.sobrenome,usuarios_instituicoes.nivel_acesso FROM usuarios_instituicoes
-								LEFT JOIN usuarios_fisico ON usuarios_fisico.id=usuarios_instituicoes.fk_usuario WHERE fk_instituicao=".$id;	
+					<?php
+						$sql = "SELECT usuarios_fisico.nome,usuarios_fisico.sobrenome,usuarios_fisico.imagem_perfil,usuarios_instituicoes.nivel_acesso FROM usuarios_instituicoes LEFT JOIN usuarios_fisico ON usuarios_fisico.id=usuarios_instituicoes.fk_usuario WHERE fk_instituicao=".$id;	
 						$consulta = mysql_query($sql);
 						while ($rs = mysql_fetch_array($consulta)) {
 					?>
 						<div class="col-12 col-md-3" style="margin-top: 30px;">
 							<div class="card">
-								<img class="card-img-top img-fluid" src="images/evento1.jpg">
+								<?=(($rs['imagem_perfil'])!=null) ? '<img src="uploads/'.$rs['imagem_perfil'].'" class="card-img-top img-fluid">' : '<img src="images/foto_padrao.png" class="card-img-top img-fluid">';?>
 								<div class="card-block text-center">
-									<h4 class="card-title" style="margin-bottom: 8px !important;">João de Paula</h4>
+									<h4 class="card-title" style="margin-bottom: 8px !important;"><?=$rs['nome']?></h4>
 									<p class="card-text">
 										<?php 
 											if ($rs['nivel_acesso']=="Membro") {
