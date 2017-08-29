@@ -93,12 +93,12 @@
 	public function getVariaveis() {
 		# Recebe os valores do formulário e atribui as variaveis
 		$this->razaoSocial 		= $_POST['razaoSocial'];
-		$this->nomeFantasia 		= $_POST['nomeFantasia'];
+		$this->nomeFantasia 	= $_POST['nomeFantasia'];
 		$this->logradouro 		= $_POST['logradouro'];
 		$this->numero 			= $_POST['numero'];
 		$this->estado 			= $_POST['estado'];
 		$this->cidade 			= $_POST['cidade'];
-		$this->causa_defendida 		= $_POST['causa_defendida'];
+		$this->causa_defendida 	= $_POST['causa_defendida'];
 		$this->descricao	 	= $_POST['descricao'];
 	}
 
@@ -172,17 +172,25 @@
 
 				// Completa o SQL
 				if ($erro!=true) {
-					$sql .= ",'$this->imagem_perfil.".$imageFileType.")";
+					$sql .= ",'$this->imagem_perfil.".$imageFileType."')";
 				} else {
 					$sql .= ",null)";
 				}
+
+				// simula id do usuario
+				$id = 49;
 
 				# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 				if (mysql_query($sql)) {
 					// Mover o arquivo upado para a pasta uploads
 					if ($erro!=true) {
 						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
-						header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> cadastrado com sucesso :)&alert=success");
+						$sqlCadUser = "INSERT INTO usuarios_instituicoes(fk_usuario,fk_instituicao,nivel_acesso) VALUES ($id,".mysql_insert_id().",'Administrador')";
+						if (mysql_query($sqlCadUser)) {
+							header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> cadastrado com sucesso :)&alert=success");
+						} else {
+							header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> não foi cadastrada no banco devido a um erro, contate um administrador do sistema! <a href='index.php'>contato</a>&alert=danger");
+						}
 					} else {
 						header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> foi cadastrado com sucesso, mas não foi possivel upar a foto da instituição por erro de validação :(&alert=warning");
 					}
