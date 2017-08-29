@@ -104,25 +104,42 @@
 				<div class="col-12 perfil_instituicao">
 					<div class="row">
 						<?php
-							$sql = "".$id;	
-							$consulta = mysql_query($sql);
-							// while ($rs = mysql_fetch_array($consulta)) {
+							$sqlEventos = "SELECT *,now('Y-m-d') FROM evento WHERE fk_instituicao=".$id;
+							$consultaEventos = mysql_query($sqlEventos);
+							while ($rsEventos = mysql_fetch_array($consultaEventos)) {
 						?>
-							<div class="col-12 col-md-3" style="margin-top: 30px;">
+							<div class="col-12 col-md-4" style="margin-top: 30px;">
 								<div class="card">
-									<img class="card-img-top img-fluid" src="images/evento1.jpg">
+									<img class="card-img-top img-fluid" src="uploads/<?=$rsEventos['foto_capa']?>">
 									<div class="card-block">
-										<h4 class="card-title" style="margin-bottom: 8px !important;">Reforma carroça do seu zé</h4>
-										<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-										<small class="card-text">
-											<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00 <span class="badge badge-default">Finalizado</span><br>
-										</small>
-										<a href="#" class="btn btn-sm btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<h4 class="card-title" style="margin-bottom: 8px !important;"><?=$rsEventos['titulo']?></h4>
+										<p class="card-text">
+											<small>
+												<i class="fa fa-calendar fa-lg"></i>
+											</small>
+											<?php
+											 	echo ParseDate($rsEventos['data'],'d/m/Y H:i') . " ";
+
+												$hoje = ParseDate($rsEventos["now('Y-m-d')"],'d/m/Y');
+												$dataEvento = ParseDate($rsEventos["data"],'d/m/Y');
+
+													if ($dataEvento==$hoje) {
+														echo '<span class="badge badge-success">Hoje</span><br>';
+													} else {
+														if ($hoje>$dataEvento) {
+															echo '<span class="badge badge-default">Finalizado</span><br>';
+														} else {
+															echo '<span class="badge badge-warning">Em breve</span><br>';
+														}
+													}
+											?>
+										</p>
+										<a href="evento.php?ver=<?=$rsEventos['id']?>&acao=informacoes" class="btn btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 									</div>
 								</div>
 							</div>
 						<?php
-							// }
+							}
 						?>
 					</div>
 				</div>
