@@ -43,7 +43,7 @@
 		}
 
 		public function __destruct() {
-			require_once("include/footer.php");			
+			require_once("footer.php");			
 		}
 
 		public function Conexao() {
