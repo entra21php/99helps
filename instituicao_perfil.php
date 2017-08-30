@@ -56,33 +56,70 @@
 						<div class="col-12 col-md-6" style="margin-top: 15px;">
 							<div class="card">
 								<div class="card-block">
-									<h5 class="card-title" style="margin-bottom: 8px !important;">Frequência da Instituição<small> últimos 30 dias</small></h5>
-									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-									<small class="card-text">
-										02/08/17 às 07:00
-									</small>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6" style="margin-top: 15px;">
-							<div class="card">
-								<div class="card-block">
 									<h5 class="card-title" style="margin-bottom: 8px !important;">Quantidade de eventos<small> últimos 30 dias</small></h5>
-									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-									<small class="card-text">
-										02/08/17 às 07:00
-									</small>
+									<?php
+										$sqlGrafEventos = "SELECT (SELECT count(*) FROM evento WHERE MONTH(data)=MONTH(CURRENT_DATE())-1),(SELECT count(*) FROM evento WHERE MONTH(data)=MONTH(CURRENT_DATE()))";
+										$rsGrafEventos = mysql_fetch_array(mysql_query($sqlGrafEventos));
+									?>
+									<div class="card-text box-chart">
+										<canvas id="GrafEventos" style="width:100%;"></canvas>
+										<script type="text/javascript">
+											var optionsEventos = {
+												responsive:true
+											};
+											var dataEventos = {
+												labels: ["Últimos 30 dias", "Este mês"],
+												datasets: [{
+													label: "Dados primários",
+													fillColor: "rgba(66,139,202,0.15)",
+													strokeColor: "rgba(66,139,202,0.5)",
+													pointColor: "rgba(66,139,202,1)",
+													pointStrokeColor: "#fff",
+													pointHighlightFill: "rgba(66,139,202,1)",
+													pointHighlightStroke: "#fff",
+													data: [<?=$rsGrafEventos[0]?>,<?=$rsGrafEventos[1]?>]
+												}]
+											};
+										</script>
+									</div>
 								</div>
 							</div>
 						</div>	
-						<div class="col-12 col-md-6" style="margin-top: 30px;">
+						<div class="col-12 col-md-6" style="margin-top: 15px;">
 							<div class="card">
 								<div class="card-block">
 									<h5 class="card-title" style="margin-bottom: 8px !important;">Adesão de membros<small> últimos 30 dias</small></h5>
-									<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-									<small class="card-text">
-										02/08/17 às 07:00
-									</small>
+									<?php
+										$sqlGrafMembros = "SELECT (SELECT count(*) FROM usuarios_instituicoes WHERE MONTH(data_ingresso)=MONTH(CURRENT_DATE())-1),(SELECT count(*) FROM usuarios_instituicoes WHERE MONTH(data_ingresso)=MONTH(CURRENT_DATE()))";
+										$rsGrafMembros = mysql_fetch_array(mysql_query($sqlGrafMembros));
+									?>
+									<div class="card-text box-chart">
+										<canvas id="GraftMembros" style="width:100%;"></canvas>
+										<script type="text/javascript">
+											var optionsMembros = {
+												responsive:true
+											};
+											var dataMembros = {
+												labels: ["Últimos 30 dias", "Este mês"],
+												datasets: [{
+													label: "Dados primários",
+													fillColor: "rgba(66,139,202,0.15)",
+													strokeColor: "rgba(66,139,202,0.5)",
+													pointColor: "rgba(66,139,202,1)",
+													pointStrokeColor: "#fff",
+													pointHighlightFill: "rgba(66,139,202,1)",
+													pointHighlightStroke: "#fff",
+													data: [<?=$rsGrafMembros[0]?>,<?=$rsGrafMembros[1]?>]
+												}]
+											};
+											window.onload = function(){
+											var ctxMembros = document.getElementById("GraftMembros").getContext("2d");
+											var GraftMembros = new Chart(ctxMembros).Line(dataMembros, optionsMembros);
+											var ctxEventos = document.getElementById("GrafEventos").getContext("2d");
+											var GrafEventos = new Chart(ctxEventos).Line(dataEventos, optionsEventos);
+											}
+										</script>
+									</div>
 								</div>
 							</div>
 						</div>		
