@@ -31,8 +31,23 @@ $id = 32;
 								<img src="images/<?=$rs['foto_capa']?>" class="img-fluid img-thumbnail">
 							</div>
 							<div class="col-12 col-md-8">
-								<h4 class="card-title top8"><?=$rs['titulo']?></h4>
-								<p class="card-text"><?=$rs['descricao']?></p>
+								<p>
+									<h4 class="card-title top8"><?=$rs['titulo']?></h4>
+									<?php 
+									function limitarTexto($texto, $limite){
+										$contador = strlen($texto);
+										if ( $contador >= $limite ) {      
+											$texto = substr($texto, 0, strrpos(substr($texto, 0, $limite), ' ')) . '...';
+											return $texto;
+										}
+										else{
+											return $texto;
+										}
+									} 
+
+									print(limitarTexto($rs['descricao'], $limite = 25));
+									?>
+								</p>
 								<a href="?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
 							</div>
 						</div>
