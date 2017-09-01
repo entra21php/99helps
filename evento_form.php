@@ -85,17 +85,30 @@
 							?>
 						</select>
 					</div>
-					<div class="form-group col-12 ">
-						<label for="fk_instituicao">Instituição</label>
-						<input type="text" class="form-control" id="fk_instituicao" name="fk_instituicao" placeholder="Ongs" value="<?=$this->fk_instituicao?>"><small id="instituicao" class="form-text text-muted">Escolha a instituição que participará do evento</small>
-					</div>
-				</div>
-					<div class="col-xs-7">
+					<div class="form-group col-6">
+						<label for="fk_instituicao">Instituição: </label>
+						<select class="custom-select form-control" name="fk_instituicao">
+							<?php
+							$sql ="SELECT instituicoes.nome_fantasia,instituicoes.id,usuarios_instituicoes.fk_usuario FROM usuarios_instituicoes LEFT JOIN instituicoes ON usuarios_instituicoes.fk_instituicao=instituicoes.id WHERE fk_usuario";
+
+							$consulta = mysql_query($sql);
+							while ($rs = mysql_fetch_array($consulta)) {
+								?>
+								<option value="<?=$rs['fk_instituicao']?>" <?=($this->nome_fantasia == $rs['fk_instituicao']) ? 'selected' : ''?>><?=$rs['nome_fantasia']?></option>
+								<?php
+							}
+
+							?>
+						</div>
+
+
+					</select>
+					<div class="col-xs-12">
 						<input type="submit" class="btn btn-primary" name="cadastra" value="Cadastrar">
 					</div>
-			</form>
+				</form>
+			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
-<br>
+	<br>
