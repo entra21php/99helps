@@ -84,3 +84,23 @@ Uma plataforma que conecta pessoas à instituições, promovendo o trabalho volu
 </div>
 </div>      
 </section>   -->
+
+
+
+Limitar caracteres evento_list
+
+	<?php 
+				function limitarTexto($texto, $limite){
+					$contador = strlen($texto);
+					if ( $contador >= $limite ) {      
+						$texto = substr($texto, 0, strrpos(substr($texto, 0, $limite), ' ')) . '...';
+						return $texto;
+					}
+					else{
+						return $texto;
+					}
+				} 
+
+				print(limitarTexto($rs['descricao'], $limite = 25));
+				?>
+
