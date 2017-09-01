@@ -9,9 +9,11 @@ $rs = mysql_fetch_array($consulta);
 		<div class="row">
 			<div style="background:url('uploads/<?=$rs['foto_capa']?>');background-size: 100% auto; background-position: center; height: 410px;" class="col-12 img-perfil-evento" >
 				<!-- <img src="images/images.jpg" class="img-perfil-evento"> -->&nbsp;
+				<div class="titulo_evento">
+					<h3><?=$rs['titulo']?></h3>
+				</div>
 			</div>
 			<div class="col-12 perfil_evento">
-				<h3><?=$rs['titulo']?></h3>
 			</div>
 		</div>
 	</div>
@@ -87,7 +89,24 @@ if ((isset($_GET['acao'])) && (($_GET['acao'])=="informacoes")) {
 
 				<h3 style="margin-top: 30px;">Localização</h3>
 				<p><?=$rs['logradouro']?>, <?=$rs['numero']?> - <?=$rs['cidadenome']?>/<?=$rs['estado']?></p>
-				<p>AKI VAI O GOOGLE MAPS COM O MAPA</p>
+				<p>
+					<div id="map"></div>
+					<script>
+						function initMap() {
+							var uluru = {lat: -26.9187, lng: -49.066};
+							var map = new google.maps.Map(document.getElementById('map'), {
+								zoom: 18,
+								center: uluru
+							});
+							var marker = new google.maps.Marker({
+								position: uluru,
+								map: map
+							});
+						}
+					</script>
+					<script async defer
+					src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw642B70Ciimv6sw7wFiUHALYa3gOFjJA&callback=initMap">
+				</script></p>
 			</div>
 		</div>		
 	</section>		
