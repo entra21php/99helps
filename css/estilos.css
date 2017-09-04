@@ -78,3 +78,9 @@ p {
   text-decoration: none;
   background-color: #f7f7f9;
 }
+
+#map {
+            height: 500px;
+            width: 100%;
+            border: 3px solid lightgrey;
+        }
