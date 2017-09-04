@@ -32,6 +32,20 @@ $sql = "SELECT * ,cidades.cidadenome FROM usuarios_fisico LEFT JOIN cidades ON c
 			</div>
 		</section>
 
+		<section class="row bg-primary">
+			<div class="container" style="padding: 10px 0 0 0;">
+				<ul class="nav nav-tabs" style="margin-bottom: -1px; line-height: 35px;">
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=($_GET['acao']=='informacoes')?"active":"text-white"?>" href="usuario.php?edit=<?=$id?>&acao=edit">Dados pessoais</a>
+					</li>
+					<li class="nav-item" style="padding-left: 5px;">
+						<a class="nav-link <?=(isset($_GET['password']))?"active":"text-white"?>" href="usuario.php?password=<?=$id?>">Segurança</a>
+					</li>
+					
+				</ul>
+			</div>		
+		</section>
+
 <div class="container">
 	<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="index.php">Página Inicial</a></li>
