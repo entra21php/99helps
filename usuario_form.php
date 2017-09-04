@@ -1,11 +1,11 @@
 <?php
-	#  NESTA PAGINA FICARA O HTML DO FORM
-	// Será usando o php aqui somente para indexar os resultados e exibições
-	// mas somente de maneira resumida, ex:
-	// <?=$res['resultado_mysql']?_>
+#  NESTA PAGINA FICARA O HTML DO FORM
+// Será usando o php aqui somente para indexar os resultados e exibições
+// mas somente de maneira resumida, ex:
+// <?=$res['resultado_mysql']?_>
 
-	// As verificações em php serão feitas na metódo da classe que chama este arquivo
-	// 
+// As verificações em php serão feitas na metódo da classe que chama este arquivo
+// 
 
 ?>
 <div class="container">
@@ -16,6 +16,12 @@
 			<li class="breadcrumb-item"><a href="index.php">Página Inicial</a></li>
 			<li class="breadcrumb-item active">Meus Dados</li>
 		</ol>
+
+		<div class="card">
+	<h6 class="card-header">Alterar meus dados</h6>
+	<div class="card-block">
+	<form method="POST" enctype="multipart/form-data" name="form">
+	<input type="hidden" name="id" value="<?=$id?>">
 		<?php
 	}
 	?>
@@ -25,41 +31,14 @@
 		<li class="breadcrumb-item"><a href="index.php">Página Inicial</a></li>
 		<li class="breadcrumb-item active">Novo Helper</li>
 	</ol>
+	<div class="card">
+	<h6 class="card-header">Cadastro de novo Helper</h6>
+	<div class="card-block">
+	<form method="POST" enctype="multipart/form-data" name="form">
+	<input type="hidden" name="id" value="<?=$id?>">
 	<?php
 }
 ?>
-<?php
-if (isset($_GET['add'])) {
-	?>
-	<div class="card">
-		<h6 class="card-header">Cadastro de novo Helper</h6>
-		<div class="card-block">
-			<form method="POST" enctype="multipart/form-data" name="form">
-
-				<input type="hidden" name="id" value="<?=$id?>">
-
-
-
-				<?php
-			}
-			?>
-
-
-
-			<?
-			if (isset($_GET['edit'])) {
-				?>
-				<div class="card">
-					<h6 class="card-header">Alterar meus dados</h6>
-					<div class="card-block">
-						<form method="POST" enctype="multipart/form-data" name="form">
-
-							<input type="hidden" name="id" value="<?=$id?>">
-							<?php
-
-
-							?>
-
 							<div class="row">
 								<div class="form-group col-12">
 									<label for="nome">Nome</label>
@@ -139,7 +118,7 @@ if (isset($_GET['add'])) {
 									<!-- AQUI VAI O FOR DAS CAUSAS DO BANCO -->
 									<?php
 
-						// todos os interesses
+// todos os interesses
 									if (isset($_GET['edit'])) {
 
 										$ids_int_user = array(); 
@@ -161,7 +140,7 @@ if (isset($_GET['add'])) {
 //						print_r($interesses)  . '<br>';
 
 
-							// faz o checked onde o interesse listado esta dentro do vetor de interesses da pessoa
+// faz o checked onde o interesse listado esta dentro do vetor de interesses da pessoa
 										if (in_array($interesses['id'], $ids_int_user)) {
 											$podeChecar = "checked";
 										} else {
@@ -205,7 +184,7 @@ if (isset($_GET['add'])) {
 							}
 							?>
 
-							
+
 							<div class="form-group col-12">
 								<label for="exampleTextarea">Rápida descrição sobre você!!!!</label>
 								<textarea class="form-control" id="exampleTextarea" rows="3" name="descricao"><?=$this->descricao?></textarea>
@@ -231,3 +210,4 @@ if (isset($_GET['add'])) {
 					</div>
 				</div>
 			</div><br>
+
