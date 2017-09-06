@@ -2,29 +2,42 @@
 	require_once("classes/site.class.php");
 	$site = new Site($hef=true);
 
+
 ?>
 
-	<nav class="row bg-primary menu">
-		<div class="container">
-			<div class="col-9">
-				<ul>
-					<a href=""><li class="menu-logo">99helps</li></a>
-					<a href=""><li>Eventos</li></a>
-				</ul>
-			</div>
-			<div class="col-1 foto">
-				<ul>
-					<img src="images/foto_padrao.png" class="">
-				</ul>
-			</div>
+
+
+<div class="container-fluid  bg-primary">
+
+	<div class="row" style="border: 1px solid red;">
+
+		<div class="col-md-1" style="border: 1px solid red;">
+			&nbsp;
 		</div>
-	</nav>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
+		<div class="col-md-10">
+			<nav class="row">
+				<div class="col-md-3 ">
+					<a href="# "><img src="images/logo.png" style="width: 155px; height: 80px; margin-top: 4px;"></a>
+				</div>
+				<div class="col-md-7 col-xs-6">
+					<a href=""><li style="list-style: none; color: white; line-height: 86px; float: left;">Eventos</li></a>
+					<a href=""><li style="list-style: none; color: white; line-height: 86px; float: left;">&nbsp;&nbsp;&nbsp;Instituições</li></a>
+				</div>
+				<div class="col-md-2" style="border: 1px solid red;">
+					<ul>
+						<a href="# "><img src="images/foto_padrao.png" class="menu-logo" style="height: 60px; width: 70px; margin-top: 14px;"></a>
+					</ul>
+				</div>
+
+			</nav>
+		</div>
+
+		<div class="col-md-1">
+			&nbsp;
+		</div>
+	</div>
+</div>
+
+
+<br><br><br><br>
