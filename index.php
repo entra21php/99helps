@@ -23,38 +23,33 @@
 				</div>		
 				<div class="row como-funciona align-items-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-						<img src="images/1.svg" class="float-right img-fluid">
+						<img src="images/2.png" class="float-right img-fluid">
 					</div>
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl- text-left">
 						<h4>Primeiro passo</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat.</p>
+						<p>Você pode se cadastrar e pesquisar aonde estão precisando de sua ajuda. 
+						Caso você seja proprietário ou responsável por uma ONG, você poderá se 
+						cadastrar e criar seus próprios eventos.</p>
 					</div>
 				</div>
 				<div class="row como-funciona align-items-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 push-md-6">
-						<img src="images/2.svg" class="img-fluid">
+						<img src="images/1.png" class="img-fluid">
 					</div>
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-right pull-md-6">
 						<h4>Segundo passo</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.</p>
+						<p>Você também pode interagir com outras pessoas (helpers) que tem
+						os mesmos objetivos e interesses que você.</p>
 					</div>
 				</div>
 				<div class="row como-funciona align-items-center">
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-						<img src="images/3.svg" class="float-right img-fluid">
+						<img src="images/3.png" class="float-right img-fluid">
 					</div>
 					<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-left">
 						<h4>PRONTO!</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.</p>
+						<p>Nossa plataforma é conectada ao Google Maps, facilitando sua busca 
+						e conectando você a eventos próximos.</p>
 					</div>
 				</div>
 				<div class="row como-funciona align-items-center">
