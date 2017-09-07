@@ -1,17 +1,15 @@
 <?php
 	require_once("classes/site.class.php");
 	$site = new Site($hef=true);
-
-
 ?>
 
 
 
 <div class="container-fluid  bg-primary">
 
-	<div class="row" style="border: 1px solid red;">
+	<div class="row">
 
-		<div class="col-md-1" style="border: 1px solid red;">
+		<div class="col-md-1">
 			&nbsp;
 		</div>
 
@@ -24,7 +22,7 @@
 					<a href=""><li style="list-style: none; color: white; line-height: 86px; float: left;">Eventos</li></a>
 					<a href=""><li style="list-style: none; color: white; line-height: 86px; float: left;">&nbsp;&nbsp;&nbsp;Instituições</li></a>
 				</div>
-				<div class="col-md-2" style="border: 1px solid red;">
+				<div class="col-md-2">
 					<ul>
 						<a href="# "><img src="images/foto_padrao.png" class="menu-logo" style="height: 60px; width: 70px; margin-top: 14px;"></a>
 					</ul>
