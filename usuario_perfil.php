@@ -62,8 +62,9 @@
 			<div class="container">
 				<div class="col-12 perfil_usuario">
 					<h3><?=$rs['nome']?> <?=$rs['sobrenome']?></h3>
-					<p><?=$rs['descricao']?>/</p>
-					<p><?=$rs['cidadenome']?>/<?=$rs['estado']?></p>
+					<p><?=$rs['descricao']?></p>
+					<p><?=$rs['cidadenome']?> / <?=$rs['estado']?></p>
+				
 				</div>
 			</div>		
 		</section>	
