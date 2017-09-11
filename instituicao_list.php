@@ -23,11 +23,9 @@
 			<h6 class="card-header">Minhas instituições</h6>
 			<div class="card-block">
 				<?php
-					// MELHORAR ESSE SELECT DE ACORDO COM O INSERT DA IMG E DESCRIÇÃO
-					// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
-					$sql = "SELECT instituicoes.id,instituicoes.nome_fantasia,nivel_acesso FROM usuarios_instituicoes
+					$sql = "SELECT instituicoes.id,instituicoes.nome_fantasia,instituicoes.descricao,nivel_acesso FROM usuarios_instituicoes
 							LEFT JOIN instituicoes ON id=fk_instituicao 
-							WHERE fk_usuario = 1 ORDER BY 3 DESC";	
+							WHERE fk_usuario = ".$_SESSION["id_usuario"]." AND ativo=1 ORDER BY 3 DESC";	
 					$consulta = mysql_query($sql);
 					while ($rs = mysql_fetch_array($consulta)) {
 				?>
@@ -46,7 +44,7 @@
 										echo '<h6><span class="badge badge-warning">Sou Administrador</span></h6>';
 									}
 								?>
-								<p class="card-text">Aqui ficará o php que pega os 40 primeiros caracteres da descrição da instituição e adicionará...</p>
+								<p class="card-text"><?=substr($rs['descricao'],0,250)?></p>
 								<a href="?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
 							</div>
 						</div>
