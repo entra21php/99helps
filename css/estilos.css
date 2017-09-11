@@ -44,6 +44,36 @@ p {
 	opacity: 0.5;
 }
 
+/* LOGO E MENU */
+
+.logotipo_99 img {
+	height: 40px !important;
+}
+
+.foto_menu {
+	margin-left: 0 !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding-left: 0 !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.foto_menu img {
+	max-height: 45px;
+}
+
+.menu {
+	line-height: 40px !important;
+}
+
+.menu_busca {
+	border: 1px solid #fff !important;
+}
+.menu_busca.btn {
+	background-color: #000 !important;
+}
+
 /* INDEX DESLOGADO */
 
 .quem-somos,.eventos-destaque {
@@ -80,7 +110,7 @@ p {
 }
 
 #map {
-            height: 500px;
-            width: 100%;
-            border: 3px solid lightgrey;
-        }
+  height: 500px;
+  width: 100%;
+  border: 3px solid lightgrey;
+}
