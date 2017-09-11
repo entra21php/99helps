@@ -240,7 +240,7 @@ public function delCadastro($id) {
 public function editPassword(){
 	if(isset($_POST['password'])) {
 		$this->email 			=$_POST['email'];
-		$this->email_confere	=$_POST['email_confere']; 	
+		$this->email_confere		=$_POST['email_confere']; 	
 		$this->senha 		 	=$_POST['senha'];
 		$this->senha_confere	=$_POST['senha_confere'];
 
@@ -330,10 +330,11 @@ public function editCadastro() {
 		$del_vetor = implode(' OR ', $del);
 		$del = "DELETE FROM interesses_usuario WHERE " . $del_vetor;
 
+		// NÃO PRECISA MOSTRAR A MENSAGEM // JÁ ESTÁ FUNCIONANDO NO BANCO DE DADOS
 		if(mysql_query($del)){
-			echo "apagado do grupo com sucesso <br>";
+		 	echo "";
 		} else {
-			echo "DEL pau na combi! " . $del . "<br>";
+		 	echo "DEL pau na combi! " . $del . "<br>";
 		}
 
 		// add grupos
