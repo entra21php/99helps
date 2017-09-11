@@ -4,7 +4,7 @@
 	// Será usando o php aqui somente para indexar os resultados e exibições
 	// mas somente de maneira resumida, ex:
 
-	$sql = "SELECT * ,cidades.cidadenome FROM instituicoes LEFT JOIN cidades ON cidades.id=instituicoes.fk_cidade WHERE instituicoes.id = " . $id;
+	$sql = "SELECT * ,cidades.cidadenome FROM instituicoes LEFT JOIN cidades ON cidades.id=instituicoes.fk_cidade WHERE instituicoes.id = ".$id;
 	$consulta = mysql_query($sql);	
 	$rs = mysql_fetch_array($consulta);
 ?>
@@ -17,11 +17,20 @@
 					<div class="col-12 col-md-8 top8">
 						<h3><?=$rs['nome_fantasia']?></h3>
 						<p class="text-justify"><?=$rs['descricao']?></p>
-						<!-- SÓ EXIBE ESSE BOTÃO SE O ID DA SESSÃO TIVER PERMISSÃO -->
+						<?php 
+							$sqlNivel = "SELECT * FROM usuarios_instituicoes WHERE fk_usuario=".$_SESSION["id_usuario"];
+							$consultaNivel = mysql_query($sqlNivel);
+							$rsNivel = mysql_fetch_array($consultaNivel);
+
+							if ($rsNivel['nivel_acesso']=="Administrador") {
+						?>
 						<div class="btn-group top8" role="group">
 							<a href="instituicao.php?edt=<?=$id?>"><button type="button" class="btn btn-secundary">Editar perfil</button></a>&nbsp;
 							<a href="instituicao.php?del=<?=$id?>&nome_fantasia=<?=$rs['nome_fantasia']?>"><button type="button" class="btn btn-outline-danger">Excluir instituição</button></a>
 						</div>
+						<?php
+							}
+						?>
 					</div>
 				</div>
 			</div>
@@ -141,7 +150,7 @@
 				<div class="col-12 perfil_instituicao">
 					<div class="row">
 						<?php
-							$sqlEventos = "SELECT *,now('Y-m-d') FROM evento WHERE fk_instituicao=".$id;
+							$sqlEventos = "SELECT *,now('Y-m-d') FROM evento WHERE fk_instituicao=".$id." ORDER BY data DESC";
 							$consultaEventos = mysql_query($sqlEventos);
 							while ($rsEventos = mysql_fetch_array($consultaEventos)) {
 						?>
@@ -160,15 +169,18 @@
 												$hoje = ParseDate($rsEventos["now('Y-m-d')"],'d/m/Y');
 												$dataEvento = ParseDate($rsEventos["data"],'d/m/Y');
 
-													if ($dataEvento==$hoje) {
-														echo '<span class="badge badge-success">Hoje</span><br>';
+												if (strtotime($dataEvento)==strtotime($hoje)) {
+													echo '<span class="badge badge-success">Hoje</span><br>';
+												} else {
+													if (strtotime($hoje)>strtotime($dataEvento)) {
+														echo '<span class="badge badge-default">Finalizado</span><br>';
 													} else {
-														if ($hoje>$dataEvento) {
-															echo '<span class="badge badge-default">Finalizado</span><br>';
-														} else {
+														if (strtotime($dataEvento)>strtotime($hoje)) {
 															echo '<span class="badge badge-warning">Em breve</span><br>';
 														}
 													}
+												}
+
 											?>
 										</p>
 										<a href="evento.php?ver=<?=$rsEventos['id']?>&acao=informacoes" class="btn btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
@@ -191,7 +203,7 @@
 			<div class="container">
 				<div class="row">
 					<?php
-						$sql = "SELECT usuarios_fisico.nome,usuarios_fisico.sobrenome,usuarios_fisico.imagem_perfil,usuarios_instituicoes.nivel_acesso FROM usuarios_instituicoes LEFT JOIN usuarios_fisico ON usuarios_fisico.id=usuarios_instituicoes.fk_usuario WHERE fk_instituicao=".$id;	
+						$sql = "SELECT usuarios_fisico.id,usuarios_fisico.nome,usuarios_fisico.sobrenome,usuarios_fisico.imagem_perfil,usuarios_instituicoes.nivel_acesso FROM usuarios_instituicoes LEFT JOIN usuarios_fisico ON usuarios_fisico.id=usuarios_instituicoes.fk_usuario WHERE fk_instituicao=".$id;	
 						$consulta = mysql_query($sql);
 						while ($rs = mysql_fetch_array($consulta)) {
 					?>
@@ -210,7 +222,7 @@
 										?>
 									</p>
 									<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO USUÁRIO -->
-									<a href="#" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+									<a href="usuario.php?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 								</div>
 							</div>
 						</div>
