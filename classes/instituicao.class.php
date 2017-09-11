@@ -17,18 +17,31 @@
 
 		# Verifica se está sendo passado parametro de alert
 		if ((isset($_GET['msg'])) || (isset($_GET['alert']))) {
+			echo "<br>";
 			alert($_GET['msg'],$_GET['alert']);
+		} else {
+			if (!isset($_GET['ver'])) {
+				echo "<br>";
+			}
 		}
 
 		# Verifica a acao do momento
 		if (isset($_GET['edt'])) {
 			// EDIÇÃO
-			$this->edtInstituicao($_GET['edt']);
+			$sqlNivel = "SELECT * FROM usuarios_instituicoes WHERE fk_usuario=".$_SESSION["id_usuario"];
+			$consultaNivel = mysql_query($sqlNivel);
+			$rsNivel = mysql_fetch_array($consultaNivel);
+
+			if ($rsNivel['nivel_acesso']=="Administrador") {
+				$this->edtInstituicao($_GET['edt']);
+			} else {
+				header("Location: instituicao.php?msg=<strong>Erro! </strong> Você está tentando acessar uma página sem permissão =(&alert=danger");
+			}
+
 		} elseif (isset($_GET['add'])) {
 			// ADD
 			$this->addInstituicao();
 		} elseif ((isset($_GET['ver'])) && (isset($_GET['acao'])) ) {
-
 			// Verifica se existe o registro no banco
 			$sql = "SELECT * FROM instituicoes WHERE id = " . $_GET['ver'];
 			$consulta = mysql_query($sql);
@@ -41,8 +54,16 @@
 			}
 
 		} elseif (isset($_GET['del'])) {
-			// VER INSTITUIÇÃO
-			$this->delInstituicao($_GET['del'],$_GET['nome_fantasia']);
+			// DELETAR INSTITUIÇÃO
+			$sqlNivel = "SELECT * FROM usuarios_instituicoes WHERE fk_usuario=".$_SESSION["id_usuario"];
+			$consultaNivel = mysql_query($sqlNivel);
+			$rsNivel = mysql_fetch_array($consultaNivel);
+
+			if ($rsNivel['nivel_acesso']=="Administrador") {
+				$this->delInstituicao($_GET['del'],$_GET['nome_fantasia']);
+			} else {
+				header("Location: instituicao.php?msg=<strong>Erro! </strong> Você está tentando acessar uma página sem permissão =(&alert=danger");
+			}
 		} else {
 			// LISTAR INSTITUICOES
 			$this->listInstituicoes();
@@ -177,15 +198,12 @@
 					$sql .= ",null)";
 				}
 
-				// simula id do usuario
-				$id = 49;
-
 				# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 				if (mysql_query($sql)) {
 					// Mover o arquivo upado para a pasta uploads
 					if ($erro!=true) {
 						move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
-						$sqlCadUser = "INSERT INTO usuarios_instituicoes(fk_usuario,fk_instituicao,nivel_acesso) VALUES ($id,".mysql_insert_id().",'Administrador')";
+						$sqlCadUser = "INSERT INTO usuarios_instituicoes(fk_usuario,fk_instituicao,nivel_acesso) VALUES (".$_SESSION["id_usuario"].",".mysql_insert_id().",'Administrador')";
 						if (mysql_query($sqlCadUser)) {
 							header("Location: instituicao.php?msg=<strong>" . $this->nomeFantasia . "</strong> cadastrado com sucesso :)&alert=success");
 						} else {
@@ -300,7 +318,6 @@
 		if (mysql_query($sql)) {
 			header("Location: instituicao.php?msg=<strong>" . $nome . "</strong> deletado com sucesso :) <br> Se você deseja reativar esta insituição futuramente entre em contato conosco! <a href='contato.php'>Contato</a>&alert=success");
 		} else {
-			echo $id . 'eae';
 			header("Location: instituicao.php?msg=<strong>" . $nome . "</strong> não pode ser deletado com sucesso :(<a href='contato.php'>Contato</a>&alert=danger");
 		}
 	}
