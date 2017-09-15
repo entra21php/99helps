@@ -24,6 +24,9 @@ class Evento Extends Site {
 		} elseif ((isset($_GET['ver'])) && (isset($_GET['acao'])) ) {
 				// VER EVENTO
 			$this->verEvento($_GET['ver']);
+		} elseif ((isset($_GET['confirmacao'])) && (isset($_GET['id_evento']))) {
+			// VERIFICAR CONFIRMAÇÃO
+			$this->funcaoConfirmacao($_GET['confirmacao'],$_GET['id_evento']);
 		} else {
 				// LISTAR EVENTO
 			$this->listEvento();
@@ -226,6 +229,33 @@ class Evento Extends Site {
 	public function listEvento() {
 		require_once("evento_list.php");
 	}
+
+	public function funcaoConfirmacao($confirmacao,$id_evento) {
+		// pesquisa pelo id do usuario na tabela, se ele ja ta no evento e remove
+		switch ($confirmacao) {
+			case 'confirmado':
+				$sql = "INSERT INTO evento_usuarios VALUES (".$id_evento.",".$_SESSION['id_usuario'].",'".$confirmacao."')";
+				echo "confirmado";
+				break;
+				alert("Voc~e confirmou presença neste evento");
+			default:
+				case 'interessado';
+					$sql ="INSERT INTO evento_usuarios VALUES (".$id_evento.",".$_SESSION['id_usuario'].",'".$confirmacao."')";
+					echo "itneressado";
+				break;
+				alert("Você tem interesse neste evento");
+			default:
+				case 'Não':
+					$sql = "INSERT INTO envento_usuarios VALUES (".$id_evento.",".$_SESSION['id_usuario'].",'".$confirmacao."')"; 
+					echo "nao";
+				break;
+				alert("Você cancelou participação neste evento");
+		}
+
+		header("Location: evento.php?");
+	}
+
+
 			#  IMPLEMENTAÃ‡ÃƒO FUTURA DA CLASSE
 			// se a pessoa ta no perfil da ong e ela nao Ã© da ong, ela poderÃ¡ enviar pedido para ser da ong
 			// se a pessoa Ã© da ong e tÃ¡ na listagem de membros, haverÃ¡ uma barra de busca para ela convidar pessoas
