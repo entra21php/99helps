@@ -23,9 +23,7 @@
 			<h6 class="card-header">Minhas instituições</h6>
 			<div class="card-block">
 				<?php
-					$sql = "SELECT instituicoes.id,instituicoes.nome_fantasia,instituicoes.descricao,nivel_acesso FROM usuarios_instituicoes
-							LEFT JOIN instituicoes ON id=fk_instituicao 
-							WHERE fk_usuario = ".$_SESSION["id_usuario"]." AND ativo=1 ORDER BY 3 DESC";	
+					$sql = "SELECT instituicoes.id,instituicoes.nome_fantasia,instituicoes.descricao,nivel_acesso FROM usuarios_instituicoes LEFT JOIN instituicoes ON id=fk_instituicao WHERE fk_usuario = ".$_SESSION["id_usuario"]." AND ativo=1 ORDER BY 3 DESC";	
 					$consulta = mysql_query($sql);
 					while ($rs = mysql_fetch_array($consulta)) {
 				?>

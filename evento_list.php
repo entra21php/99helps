@@ -1,7 +1,3 @@
-<?php
-	# ID = VARIAVEL DA SESSAO DO USUARIO PARA TESTES
-$id = 32;
-?>	
 <section class="container">
 	<p>
 		<ol class="breadcrumb text-center">
@@ -14,9 +10,9 @@ $id = 32;
 		<h6 class="card-header">Meus eventos</h6>
 		<div class="card-block">
 			<?php
-					// MELHORAR ESSE SELECT DE ACORDO COM O INSERT DA IMG E DESCRIÇÃO
-					// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
-			$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario =" . $id;	
+			// MELHORAR ESSE SELECT DE ACORDO COM O INSERT DA IMG E DESCRIÇÃO
+			// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
+			$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario =".$_SESSION['id_usuario'];	
 			$consulta = mysql_query($sql);
 			while ($res = mysql_fetch_array($consulta)) {
 				$sqlEvento = "SELECT * FROM evento WHERE id =" . $res['fk_evento'];
@@ -34,18 +30,7 @@ $id = 32;
 								<p>
 									<h4 class="card-title top8"><?=$rs['titulo']?></h4>
 									<?php 
-									function limitarTexto($texto, $limite){
-										$contador = strlen($texto);
-										if ( $contador >= $limite ) {      
-											$texto = substr($texto, 0, strrpos(substr($texto, 0, $limite), ' ')) . '...';
-											return $texto;
-										}
-										else{
-											return $texto;
-										}
-									} 
-
-									print(limitarTexto($rs['descricao'], $limite = 25));
+										print(limitarTexto($rs['descricao'], $limite = 250));
 									?>
 								</p>
 								<a href="?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
