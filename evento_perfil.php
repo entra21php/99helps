@@ -22,7 +22,7 @@ $rs = mysql_fetch_array($consulta);
 <section class="row bg-primary">
 	<div class="container">
 		<div class="row" style="padding: 10px 0 0 0;">
-			<ul class="nav nav-tabs col-8" style="margin-bottom: -1px; line-height: 35px;">
+			<ul class="nav nav-tabs col-5" style="margin-bottom: -1px; line-height: 35px;">
 				<li class="nav-item" style="padding-left: 5px;">
 					<a class="nav-link <?=($_GET['acao']=='informacoes')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=informacoes">Informações</a>
 				</li>
@@ -30,7 +30,16 @@ $rs = mysql_fetch_array($consulta);
 					<a class="nav-link <?=($_GET['acao']=='voluntarios')?"active":"text-white"?>" href="evento.php?ver=<?=$id?>&acao=voluntarios">Volutários participantes</a>
 				</li>
 			</ul>
-			<div class="col-4 text-right">
+			<div class="dropdown-confirmar col-2">
+				  <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">Participar
+				  <span class="caret"></span></button>
+				  <ul class="dropdown-menu">
+				    <li><a href="?confirmacao=confirmado&id_evento=<?=$_GET['ver']?>">Confirmar</a></li>
+				    <li><a href="?confirmacao=interessado&id_evento=<?=$_GET['ver']?>">Interessado</a></li>
+				    <li><a href="?confirmacao=nao&id_evento=<?=$_GET['ver']?>">Não participar</a></li>
+				  </ul>
+			</div>
+			<div class="col-5 text-right">
 				<a href="evento.php?edt=<?=$id?>"><button type="button" class="btn btn-secundary">Editar evento</button></a>&nbsp;
 				<a href="evento.php?del=<?=$id?>&titulo=<?=$rs['titulo']?>"><button type="button" class="btn btn-danger">Excluir evento</button></a>
 			</div>
