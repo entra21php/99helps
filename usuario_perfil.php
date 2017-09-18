@@ -74,69 +74,61 @@
 			<div class="container">
 				<div class="col-12 perfil_usuario">
 					<div class="row">
-						<?php 
-							// AQUI VAI O SELECT DOS EVENTOS DO USUARIO
-							//$sql = "SELECT * FROM evento".$id;	
-							//$consulta = mysql_query($sql);
-							/*while ($rs = mysql_fetch_array($consulta))*/ {
-						?>
-							<div class="col-12 col-md-3">
-								<div class="card">
-									<img class="card-img-top img-fluid" src="images/evento1.jpg">
-									<div class="card-block">
-										<h4 class="card-title">Reforma carroça do seu zé</h4>
-										<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-										<small class="card-text">
-											<i class="fa fa-calendar fa-lg"></i> 21/08/17 às 07:00 <span class="badge badge-default">Finalizado</span><br>
-										</small>
-										<a href="#" class="btn btn-sm btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-									</div>
-								</div>
-							</div>
 						<?php
-							}
-						?>
+					// MELHORAR ESSE SELECT DE ACORDO COM O INSERT DA IMG E DESCRIÇÃO
+					// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
+			$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario =" . $id;	
+			$consulta = mysql_query($sql);
+			while ($res = mysql_fetch_array($consulta)) {
+				$sqlEvento = "SELECT * FROM evento WHERE id =" . $res['fk_evento'];
+				$consultaEvento = mysql_query($sqlEvento);
+				$rs = mysql_fetch_array($consultaEvento);
+
+				?>
+				<div class="card">
+					<div class="card-block">
+						<div class="row">
+							<div class="col-12 col-md-4">
+								<img src="images/<?=$rs['foto_capa']?>" class="img-fluid img-thumbnail">
+							</div>
+							<div class="col-12 col-md-8">
+								<p>
+									<h4 class="card-title top8"><?=$rs['titulo']?></h4>
+									<?php 
+									print(limitarTexto($rs['descricao'], $limite = 25));
+									?>
+								</p>
+								<a href="evento.php?ver=<?=$rs['id']?>&acao=informacoes" class="btn btn-primary top8">Detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
+							</div>
+						</div>
+					</div>
+				</div><br>
+				<?php 
+			}
+			if (mysql_num_rows($consulta)==0) {
+				?>
+				<div class="card">
+					<div class="card-block text-center">
+						<h4 class="card-title">Esse Helper não tem nenhum evento cadastrado =(</h4>
+						<p class="card-text">Parece que você não tem muita intimidade com nossa plataforma ainda. Procure por eventos e solicite para participar dos eventos, ou então veja como criar um evento abaixo.</p>
+					</div>
+				</div><br>
+				<?php 
+			}
+			?>
+					</div>
+				</div>
+			</div>		
+		</section>		
+				<?php 
+			}
+			
+			?>
 					</div>
 				</div>
 			</div>		
 		</section>		
 		<?php 
-			}
-			if ((isset($_GET['acao'])) && (($_GET['acao'])=="eventos_passados")) {
-		?>
-		<!-- PÁGINA EVENTOS -->
-		<section class="row">
-			<div class="container">
-				<div class="col-12 perfil_usuario">
-					<div class="row">
-						<?php 
-							// AQUI VAI O SELECT DOS EVENTOS DO USUARIO
-							//$sql = "".$id;	
-							//$consulta = mysql_query($sql);
-							/*while ($rs = mysql_fetch_array($consulta))*/ {
-						?>
-							<div class="col-12 col-md-3">
-								<div class="card">
-									<img class="card-img-top img-fluid" src="images/evento1.jpg">
-									<div class="card-block">
-										<h4 class="card-title">Reforma carroça do seu zé</h4>
-										<!-- IMPLANTAR VERIFICAO SE O EVENTO ESTA FINALIZADO OU IRÁ OCORRER EM BREVE... -->
-										<small class="card-text">
-											<i class="fa fa-calendar fa-lg"></i> 02/08/17 às 07:00 <span class="badge badge-default">Finalizado</span><br>
-										</small>
-										<a href="#" class="btn btn-sm btn-primary top8">Ver detalhes <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-									</div>
-								</div>
-							</div>
-						<?php
-							}
-						?>
-					</div>
-				</div>
-			</div>		
-		</section>		
-		<?php 
-			}
 			if ((isset($_GET['acao'])) && (($_GET['acao'])=="membros")) {
 		?>
 		<!-- PÁGINA MEMBROS -->
@@ -179,4 +171,5 @@
 		<?php 
 			}
 		?>
+
 
