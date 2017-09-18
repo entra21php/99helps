@@ -28,6 +28,21 @@
 			}
 		}
 	}
+
+
+	# Verifica logout
+	if (isset($_GET['sair'])) {
+		session_destroy();
+		session_start();
+		header("Location: index.php");
+		die();
+	}
+
+	# Pega a página atual
+	$pagina_atual = $_SERVER['PHP_SELF'];
+	$pagina_atual = explode('/', $pagina_atual);
+	$pagina_atual = end($pagina_atual);
+	
 ?>
 <!DOCTYPE html>
 <html lang="<?=IDIOMA?>">
@@ -55,9 +70,10 @@
 	<![endif]-->
 </head>
 <body>
+
 	<div class="container-fluid">
 	<?php
-		if ((isset($_SESSION["logado"])) && ($_SESSION["logado"]=="sim")) {
+		if ((isset($_SESSION["logado"])) && ($_SESSION["logado"]=="sim"))  {
 	?>
 	<nav class="navbar fixed-top navbar-toggleable-md navbar-inverse bg-primary">
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,12 +107,12 @@
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropLink">
 								<h6 class="dropdown-header">OLÁ <?=mb_convert_case($_SESSION["nome_usuario"], MB_CASE_UPPER, 'UTF-8');?></h6>
 								<a class="dropdown-login" href="usuario.php?ver=<?=$_SESSION["id_usuario"]?>&acao=informacoes">Meu perfil</a>
-								<a class="dropdown-login" href="evento.php">Meu calendário</a>
+								<a class="dropdown-login" href="evento.php">Meus eventos</a>
 								<a class="dropdown-login" href="instituicao.php">Instituições</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-login">
-									<button type="submit" class="btn btn-sm btn-danger" id="btn-entrar" name="btn-entrar">Sair</button>
-								</a>
+								<div class="dropdown-login">
+									<a href="?sair"><button type="submit" class="btn btn-sm btn-danger" id="btn-entrar" name="btn-entrar">Sair</button></a>
+								</div>
 							</div>
 						</li>
 					</ul>
@@ -136,10 +152,10 @@
 										</div>
 									</a>
 									<div class="dropdown-divider"></div>
-									<a class="dropdown-login">
+									<div class="dropdown-login">
 										<input type="submit" class="btn btn-success" id="btn-entrar" name="btn-entrar" value="Entrar">
-										<input type="submit" class="btn btn-secundary" id="btn-cadastrar" value="Cadastre-se">
-									</a>
+										<a href="usuario.php?add"><button type="submit" class="btn btn-secundary" id="btn-cadastrar">Cadastre-se</button></a>
+									</div>
 								</form>
 							</div>
 						</li>
@@ -147,10 +163,15 @@
 				</div>
 			</div>
 		</div>
-	</nav><br><br>
+	</nav><br><br><br>
 	<?php
-		// Redireciona para institucional
-		include("institucional.php");
-		die();
+		// Pagina atual + ?add
+		$pagina_atual = $pagina_atual . '?add';
+
+		// die() se pagina != usuario.php?add
+		if ($pagina_atual!="usuario.php?add") {
+			include("institucional.php");
+			die();
+		}
 		}
 	?>
