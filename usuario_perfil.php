@@ -44,10 +44,7 @@
 						<a class="nav-link <?=($_GET['acao']=='informacoes')?"active":"text-white"?>" href="usuario.php?ver=<?=$id?>&acao=informacoes">Sobre mim</a>
 					</li>
 					<li class="nav-item" style="padding-left: 5px;">
-						<a class="nav-link <?=($_GET['acao']=='eventos')?"active":"text-white"?>" href="usuario.php?ver=<?=$id?>&acao=eventos">Eventos Futuros</a>
-					</li>
-					<li class="nav-item" style="padding-left: 5px;">
-						<a class="nav-link <?=($_GET['acao']=='eventos_passados')?"active":"text-white"?>" href="usuario.php?ver=<?=$id?>&acao=eventos_passados">Eventos Passados</a>
+						<a class="nav-link <?=($_GET['acao']=='eventos')?"active":"text-white"?>" href="usuario.php?ver=<?=$id?>&acao=eventos">Eventos</a>
 					</li>
 				</ul>
 			</div>		
