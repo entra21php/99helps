@@ -12,7 +12,7 @@
 			<?php
 			// MELHORAR ESSE SELECT DE ACORDO COM O INSERT DA IMG E DESCRIÇÃO
 			// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
-			$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario =".$_SESSION['id_usuario'];	
+			$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario = ORDER BY date(d/m/Y)".$_SESSION['id_usuario'];	
 			$consulta = mysql_query($sql);
 			while ($res = mysql_fetch_array($consulta)) {
 				$sqlEvento = "SELECT * FROM evento WHERE id =" . $res['fk_evento'];
