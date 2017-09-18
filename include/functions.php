@@ -42,3 +42,16 @@
 
 		return (checkdate($m, $d, $Y) ? date($mask, mktime($H, $i, $s, $m, $d, $Y)) : false);
 	}
+
+	// FUNÇÃO DE LIMITAR A EXIBIÇÃO DE TEXTOS
+	function limitarTexto($texto, $limite){
+		$contador = strlen($texto);
+		if ( $contador >= $limite ) {      
+			$texto = substr($texto, 0, strrpos(substr($texto, 0, $limite), ' ')) . '...';
+			return $texto;
+		}
+		else{
+			return $texto;
+		}
+	} 
+?>
