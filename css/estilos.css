@@ -40,6 +40,10 @@ p {
 	padding: 20px 0;
 }
 
+.perfil_usuario {
+	padding: 20px 0;
+}
+
 .social:hover {
 	opacity: 0.5;
 }
