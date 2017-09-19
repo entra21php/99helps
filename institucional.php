@@ -22,10 +22,9 @@
 			</div>
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl- text-left">
 				<h4>Primeiro passo</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat.</p>
+				<p>Após se cadastrar você poderá interagir com outras pessoas (helpers) 
+					que tem os mesmos objetivos que os seus e participar de evento.
+				</p>
 			</div>
 		</div>
 		<div class="row como-funciona align-items-center">
@@ -34,10 +33,8 @@
 			</div>
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-right pull-md-6">
 				<h4>Segundo passo</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat.</p>
+				<p>Você poderá cadastrar sua ONG, Associação ou Instituição 
+					e solicitar ajuda.</p>
 			</div>
 		</div>
 		<div class="row como-funciona align-items-center">
@@ -46,10 +43,8 @@
 			</div>
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 text-left">
 				<h4>PRONTO!</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat.</p>
+				<p>Você também poderá contar com a ajuda do Google Maps para 
+					encontrar eventos próximos a você.</p>
 			</div>
 		</div>
 		<div class="row como-funciona align-items-center">
