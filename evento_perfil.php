@@ -151,7 +151,7 @@ if ((isset($_GET['acao'])) && (($_GET['acao'])=="voluntarios")) {
 									?>
 								</p>
 								<!-- PASSAR PARAMETRO PARA IR PARA O PERFIL DO EVENTO -->
-								<a href="#" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+								<a href="usuario_perfil.php" class="btn btn-sm btn-primary top8">Ver perfil <i class="fa fa-angle-right" aria-hidden="true"></i></a>
 							</div>
 						</div>
 					</div>
