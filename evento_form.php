@@ -20,12 +20,12 @@
 					<div class="form-group col-3">
 						<label for="data">Data</label>
 						<input type="text" class="form-control" id="data" name="data" aria-describedby="data" placeholder="Ex: 09/05/2017" value="<?=str_replace("-","/",ParseDate($this->data,'m-d-Y'))?>">
-						<small id="data" class="form-text text-muted">Ultiize o formato de data: D/M/A</small>
+						<small id="data" class="form-text text-muted">Ultilize o formato de data: D/M/A</small>
 					</div>
 					<div class="form-group col-3">
 						<label for="hora">Hora</label>
 						<input type="text" class="form-control" id="hora" name="hora" aria-describedby="hora" placeholder="Ex: 08:30:00" value="<?=ParseDate($this->data,'H:i:s')?>">
-						<small id="hora" class="form-text text-muted">Ultiize o formato de hora: H:M:S</small>		
+						<small id="hora" class="form-text text-muted">Ultilize o formato de hora: H:M:S</small>		
 					</div>
 				</div>
 
