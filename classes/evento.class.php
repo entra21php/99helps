@@ -108,13 +108,13 @@ class Evento Extends Site {
 			// Novo nome aleatorio da imagem
 			$this->foto_capa = rand(100000000,999999999) ;
 			// Nome completo
-			$nome_novo =  $target_dir . $this->foto_capa .'.'. pathinfo(basename($_FILES["fileToUpload"]["name"]),PATHINFO_EXTENSION);
+			$nome_novo =  $target_dir . $this->foto_capa .'.'. pathinfo(basename($_FILES["fileToUpload"]["tmp_name"]),PATHINFO_EXTENSION);
 			// Verifica se o arquivo ja existe no diretorio
 			if (file_exists($nome_novo)) {
 				$erro = true;
 			}
 			// Retorna nome do arquivo (basename)
-			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
 			// Caminho completo com extensao
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -171,14 +171,49 @@ class Evento Extends Site {
 				// Recebe as variaveis do formulário
 
 			$this->getVariaveis();
+
+				#  Configurações do upload de foto
+			// Diretorio pra salvar
+			$target_dir = "uploads/";
+			// Novo nome aleatorio da imagem
+			$this->foto_capa = rand(100000000,999999999) ;
+			// Nome completo
+			$nome_novo =  $target_dir . $this->foto_capa .'.'. pathinfo(basename($_FILES["fileToUpload"]["tmp_name"]),PATHINFO_EXTENSION);
+			// Verifica se o arquivo ja existe no diretorio
+			if (file_exists($nome_novo)) {
+				$erro = true;
+			}
+			// Retorna nome do arquivo (basename)
+			$target_file = $target_dir . basename($_FILES["fileToUpload"]["tmp_name"]);
+			// Caminho completo com extensao
+			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+			#  Verificações
+			// Verifica se a imagem é real
+			$check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+			// Se a imagem é real, exibe msg
+			if($check === false) {
+				$erro = true;
+			}
+			// Verifica o tamanho
+			if ($_FILES["fileToUpload"]["size"] > 500000) {
+				$erro = true;
+			}
+			// Verifica o formato da imagem
+			if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+				$erro = true;
+			}
+
+
+
 				// O IF chama a verificação de dados do formulário
 				// se houver erro exibe o erro, senão executa o insert
 			if ((strlen($this->getVerificacao()))>0) {
 				alert($this->getVerificacao(),"danger");
 			} else {
-				$sql = "UPDATE evento SET titulo='$this->titulo', descricao='$this->descricao', data='$this->data', foto_capa='$this->foto_capa', fk_instituicao=$this->fk_instituicao, logradouro='$this->logradouro', numero=$this->numero, estado='$this->estado', fk_cidade=$this->cidade WHERE id=".$id;
+				$sql = "UPDATE evento SET titulo='$this->titulo', descricao='$this->descricao', data='$this->data', foto_capa='$this->foto_capa.".$imageFileType."', fk_instituicao=$this->fk_instituicao, logradouro='$this->logradouro', numero=$this->numero, estado='$this->estado', fk_cidade=$this->cidade WHERE id=".$id;
 
-				echo $sql;
+				
 					# Se cadastrado com sucesso exibe mensagem sucesso, senão, exibe erro
 				if (mysql_query($sql)) {
 					move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $nome_novo);
