@@ -14,7 +14,7 @@
 			// O WHERE DESSE SELECT SERÁ REFERENTE AO ID DA SESSAO LOGADA NA PLATAFORMA
 			$sql = "SELECT fk_evento FROM evento_usuarios WHERE fk_usuario = ORDER BY date(d/m/Y)".$_SESSION['id_usuario'];	
 			$consulta = mysql_query($sql);
-			while ($res = mysql_fetch_array($consulta)) {
+			while ($rs = mysql_fetch_array($consulta)) {
 				$sqlEvento = "SELECT * FROM evento WHERE id =" . $res['fk_evento'];
 				$consultaEvento = mysql_query($sqlEvento);
 				$rs = mysql_fetch_array($consultaEvento);
@@ -45,8 +45,8 @@
 				<div class="card">
 					<div class="card-block text-center">
 						<h4 class="card-title">Você não participa de nenhum evento =(</h4>
-						<p class="card-text">Parece que você não tem muita intimidade com nossa plataforma ainda. Procure por eventos e solicite para participar dos eventos, ou então veja como criar um evento abaixo.</p>
-						<a href="?add" class="btn btn-secondary top8">Procurar eventos <i class="fa fa-angle-right" aria-hidden="true"></i></a>	
+						<p class="card-text">Parece que você não tem muita intimidade com nossa plataforma ainda. Procure por eventos na barra de pesquisa acima e solicite para participar dos eventos, ou então veja como criar um evento abaixo.</p>
+						
 					</div>
 				</div><br>
 				<?php 
@@ -61,3 +61,4 @@
 		</div>
 	</div><br>
 </section>
+
