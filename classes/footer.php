@@ -4,7 +4,7 @@
 					<div class="col-xs-2 col-sm-12 col-md-12 col-lg-12 sitemap text-center roda">
 						<small>
 							<a href="#" class="btn btn-social-icon btn-twitter text-white social"><span class="fa fa-twitter"></span></a>
-  							<a href="#" class="btn btn-social-icon btn-facebook text-white social"><span class="fa fa-facebook"></span></a>
+  							<a href="https://www.facebook.com/99Helps/" class="btn btn-social-icon btn-facebook text-white social"><span class="fa fa-facebook"></span></a>
   							<a href="#" class="btn btn-social-icon btn-instagram text-white social"><span class="fa fa-instagram"></span></a>
 							<a href="#" class="btn btn-social-icon btn-google text-white social"><span class="fa fa-google"></span></a>
   							<a href="#" class="btn btn-social-icon btn-linkedin text-white social"><span class="fa fa-linkedin"></span></a>
