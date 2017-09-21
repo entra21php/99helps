@@ -1,6 +1,3 @@
-http://www.linhadecodigo.com.br/artigo/3602/crop-jquery-recortando-imagens-com-jcrop.aspx
-
-evento_form.php
 
 <br>
 <section class="container">
