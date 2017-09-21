@@ -154,7 +154,7 @@
 									<div class="dropdown-divider"></div>
 									<div class="dropdown-login">
 										<input type="submit" class="btn btn-success" id="btn-entrar" name="btn-entrar" value="Entrar">
-										<a href="usuario.php?add"><button type="submit" class="btn btn-secundary" id="btn-cadastrar">Cadastre-se</button></a>
+										<a href="usuario.php?add"><button type="button" class="btn btn-secundary" id="btn-cadastrar">Cadastre-se</button></a>
 									</div>
 								</form>
 							</div>
